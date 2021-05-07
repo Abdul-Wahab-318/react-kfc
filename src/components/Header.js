@@ -5,7 +5,7 @@ import cart from '../img/cart-icon.png'
 function Header ()
 {
     return (
-        <div className="header-parent">
+        <div className="header-parent" id="header">
             <div className="header-inner">
                 <div className="header-inner-dec">
                     <div className="dec-red"></div>

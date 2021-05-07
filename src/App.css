@@ -9,6 +9,7 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
+  scroll-behavior: smooth;
 }
 .container{
   max-width: 1140px;
@@ -20,10 +21,7 @@
   margin:  0 auto;
   padding:  0 15px;
 }
-.header-inner{
 
-  
-}
 
 .header-inner-dec{
   display: flex;
@@ -222,4 +220,53 @@
   padding: 5px 0;
   text-align: center;
   font-size: 18px;
+}
+/*CARD MEAL END CARD MEAL END*/
+
+.footer-parent{
+
+}
+
+.footer{
+  border-top: 1px solid var(--navbarBG);
+  padding-top: 50px;
+}
+.footer-logo{
+  text-align: center;
+  position: relative;
+}
+
+.footer-logo .back-to-top{
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid var(--navbarBG);
+  padding: 4px;
+  font-size: 13px;
+  color:  var(--primary-red);
+  display: flex;
+  align-items: center;
+}
+.footer-logo .back-to-top img{
+  margin-right: 3px;
+}
+.footer-bottom{
+  margin-top: 80px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fill, 20%) auto;
+  column-gap: 30px;
+}
+.footer-bottom-col ul li h6{
+  font-family: 'Assistant', sans-serif ;
+  font-weight: 600;
+}
+.footer-bottom-col ul li{
+  margin: 5px 0;
+}
+.footer-bottom-col ul li a{
+  font-family: 'Assistant', sans-serif ;
+  font-size: 14px;
+  color:  var(--blackText);
+  
 }

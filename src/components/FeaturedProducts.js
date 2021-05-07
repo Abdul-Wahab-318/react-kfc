@@ -40,7 +40,7 @@ function FeaturedProducts()
                     <img width="100%" src="https://cdn-images-fishry.azureedge.net/product/FF1-500x360-ad4dfde-kfc.png/xs" alt="" />
                 </div>
                 <div className="card-meal-name">
-                    <p className="mb-0">Ramadan Feast</p>
+                    <p className="mb-0">Family Festival 1</p>
                 </div>
                 <div className="card-meal-details">
                     <p className="assistant">4 Zinger Burgers + 4 Pcs Chicken + 4 Sabroso Chicken Samosas + 2 Olper’s Flavored Milks + 2 Choco Lava Packs...</p>
