@@ -1,38 +1,225 @@
-.App {
-  text-align: center;
+:root{
+  --primary-red : #e21e2d ;
+  --primary-white : white ;
+  --blackText : #2d2926;
+  --navbarBG : #f3f3f3;
+}
+*{
+  font-family: 'Bebas Neue', cursive;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.container{
+  max-width: 1140px;
+  margin:  0 auto;
+  padding:  0 15px;
+}
+.header-parent{
+  max-width: 1140px;
+  margin:  0 auto;
+  padding:  0 15px;
+}
+.header-inner{
+
+  
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header-inner-dec{
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+.dec-red{
+  width: 28px;
+  height: 14px;
+  background-color: var(--primary-red);
+}
+
+.dec-white{
+  width: 28px;
+  height: 14px;
+  background-color: var(--primary-white);
+}
+/*HEADER DECORATION END*/  /*HEADER DECORATION END*/  /*HEADER DECORATION END*/
+.header-inner-brand{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.brand-logo img{
+  width: 90px;
+  margin-left: 5px;
+}
+.login-parent{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.login-parent a{
+  color: var(--blackText);
+  text-transform: uppercase;
+  font-size: 17px;
+  margin-left: 0;
+}
+.login-parent img{
+  width: 16px;
+}
+.login{
+  margin-left: 40px;
+}
+/*HEADER-INNER-BRAND END*/  /*HEADER-INNER-BRAND END*/  /*HEADER-INNER-BRAND END*/  
+.header-inner-navbar{
+  display: grid;
+  grid-template-columns: 83% 17%;
+  margin-top: 15px;
+}
+.navbar{
+  padding: 15px 10px;
+  margin: 0;
+  background-color: var(--navbarBG);
+  border-right: 2px solid var(--primary-white);
+}
+.navbar li a{
+  text-transform: uppercase;
+  color:  var(--blackText);
+  font-size: 20px;
+  padding: 8px 12px;
+  letter-spacing: 1px;
+  transition: all 200ms ease;
+}
+.navbar li:last-child{
+  margin-right: 120px;
+}
+.navbar li:hover a{
+  opacity: 0.7;
+  text-decoration-line: none;
+}
+
+.cart-parent{
+  margin-bottom: unset;
+  background-color: var(--navbarBG);
+  padding : 10px 10px
+}
+.cart-parent li{
+  position: relative;
+}
+.cart-parent img{
+  display: block;
+  margin-left: auto;
+}
+.cart-parent li::after{
+  position: absolute;
+  top: 5px;
+  right: 16px ;
+  content: '0';
+  display: block;
+  font-size: 20px;
   color: white;
 }
+/*NAVBAR END NAVBAR ENDS*/
 
-.App-link {
-  color: #61dafb;
+.slider-parent{
+  margin-bottom: 60px;
 }
+.carousel-indicators{
+  margin-bottom: -40px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+.carousel-indicators li{
+  transition: all 300ms ease-in-out;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 1);
+}
+.carousel-indicators .active{
+  background-color: rgba(0, 0, 0, 0.55) ;
+  transform: scale(1.5);
+  opacity: 1;
+}
+/* CAROUSEL END CAROUSEL END*/
+
+.lead-text-parent{
+  width: 100%;
+  border: 1px solid var(--navbarBG);
+  padding: 10px 0;
+  display: grid;
+  place-items: center;
+  margin: 15px auto 25px auto;
+}
+.lead-text{
+  margin-bottom: 0;
+  font-size: 33px;
+  color: var(--blackText);
+}
+/*LEAD TEXT END LEAD TEXT END */
+
+.featured-products-parent{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  column-gap: 12px;
+  row-gap: 40px;
+  /*grid-template-columns: 33.3% 33.3% 33.3%;*/
+  grid-template-rows: 1fr;
+  margin-bottom: 40px;
+}
+.featured-product-card{
+  padding: 10px 10px;
+  margin-bottom: 8px; 
+  border: 1px solid transparent;
+  transition: all 200ms ;
+  
+}
+.featured-product-card:hover{
+  border: 1px solid var(--navbarBG);
+}
+.card-image img{
+  transition:  all 300ms;
+}
+.card-image:hover img{
+  opacity: 0.8;
+}
+.card-meal-name{
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 20px 0 8px 0;
+  font-size: 18px;
+}
+.assistant{
+  font-family: 'Assistant', sans-serif;
+}
+.card-meal-details{
+  font-weight: 400;
+  font-size: 13px;
+  margin-bottom: 0px;
+  min-height: 57px !important;
+}
+.card-meal-details p{
+  margin-bottom: 0;
+}
+.card-meal-footer{
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  width: 100%;
+}
+.card-meal-footer .card-price{
+  width: 50%;
+  border: 3px solid var(--primary-red);
+  text-transform: uppercase;
+  color:  var(--primary-red);
+  padding: 5px 0;
+  text-align: center;
+  font-size: 18px;
+}
+.card-meal-footer .add-to-bucket{
+  width: 50%;
+  border: 3px solid var(--primary-red);
+  background-color: var(--primary-red);
+  color: var(--primary-white);
+  letter-spacing: 1px;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 18px;
 }
