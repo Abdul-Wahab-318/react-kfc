@@ -12,6 +12,7 @@ function Footer()
                         <img src={footerLogo} alt="" />
                         <a href="#header" className="back-to-top assistant"> <img src={upChevron} width="12px" alt="" /> Back To Top</a>
                     </div>
+                   
                     <div className="footer-bottom">
                         <div className="footer-bottom-col">
                             <ul>
@@ -49,7 +50,26 @@ function Footer()
                             </ul>
                         </div>
                     </div>
+
+                    <div className="footer-copyright">
+                        <p className="assistant">© 2021 KFC Pakistan. All rights reserved.</p>
+                        <a href="" className="assistant">eCommerce</a> 
+                        <span className="assistant">by</span>
+                        <a href="" className="assistant">Fishry</a>
+                    </div>
+                    <div className="header-inner-dec">
+                    <div className="dec-red"></div>
+                    <div className="dec-white"></div>
+                    <div className="dec-red"></div>
+                    <div className="dec-white"></div>
+                    <div className="dec-red"></div>
+                    <div className="dec-white"></div>
+                    <div className="dec-red"></div>
+                    <div className="dec-white"></div>
+                    <div className="dec-red"></div>
                 </div>
+                </div>
+                
             </div>
         </div>
     )

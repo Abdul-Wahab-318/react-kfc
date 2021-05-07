@@ -270,3 +270,37 @@
   color:  var(--blackText);
   
 }
+
+.footer-copyright{
+  margin-top: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.footer-copyright p{
+  font-size: 14px;
+  color: #6c757d;
+}
+.footer-copyright a{
+  color: var(--primary-red);
+  font-size: 13px;
+  text-decoration: underline;
+}
+.footer-copyright span{
+  margin:  0 4px;
+  font-size: 14px;
+  color: #6c757d;
+}
+.scroll-top-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 100px;
+  background-color: var(--primary-red);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0px 0px 30px 2px rgb(202, 199, 199);
+  cursor: pointer;
+  transition: all 300ms ease;
+}
