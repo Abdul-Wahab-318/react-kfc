@@ -43,7 +43,7 @@ function FeaturedProducts()
                     <p className="mb-0">Family Festival 1</p>
                 </div>
                 <div className="card-meal-details">
-                    <p className="assistant">4 Zinger Burgers + 4 Pcs Chicken + 4 Sabroso Chicken Samosas + 2 Olper’s Flavored Milks + 2 Choco Lava Packs...</p>
+                    <p className="assistant">4 Zinger Burgers + 4 Pcs Chicken + 4 Sabroso Chicken Samosas + 2 Olper’s Flavored Milks + beans + 2 Choco Lava Packs... Lorem ipsum, dolor sit amet .</p>
                 </div>
                 <div className="card-meal-footer">
                     <a href="index.html" className="card-price">PKR 1,875</a>

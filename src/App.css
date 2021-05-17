@@ -10,11 +10,13 @@
   padding: 0;
   list-style-type: none;
   scroll-behavior: smooth;
+  text-decoration: none !important;
 }
+
 .container{
-  max-width: 1140px;
+  max-width: 1140px !important;
   margin:  0 auto;
-  padding:  0 15px;
+  padding:  0 15px !important;
 }
 .header-parent{
   max-width: 1140px;
@@ -60,11 +62,15 @@
   font-size: 17px;
   margin-left: 0;
 }
+.login-parent a:hover{
+  text-decoration:  underline !important;
+  color: var(--blackText);
+}
 .login-parent img{
   width: 16px;
 }
 .login{
-  margin-left: 40px;
+  margin-left: 30px;
 }
 /*HEADER-INNER-BRAND END*/  /*HEADER-INNER-BRAND END*/  /*HEADER-INNER-BRAND END*/  
 .header-inner-navbar{
@@ -85,6 +91,7 @@
   padding: 8px 12px;
   letter-spacing: 1px;
   transition: all 200ms ease;
+  text-decoration:  none;
 }
 .navbar li:last-child{
   margin-right: 120px;
@@ -97,19 +104,18 @@
 .cart-parent{
   margin-bottom: unset;
   background-color: var(--navbarBG);
-  padding : 10px 10px
-}
-.cart-parent li{
+  padding : 10px 10px;
   position: relative;
 }
 .cart-parent img{
   display: block;
   margin-left: auto;
 }
-.cart-parent li::after{
+
+.cart-parent span{
   position: absolute;
-  top: 5px;
-  right: 16px ;
+  top: 15px;
+  right: 26px ;
   content: '0';
   display: block;
   font-size: 20px;
@@ -121,20 +127,28 @@
   margin-bottom: 60px;
 }
 .carousel-indicators{
-  margin-bottom: -40px;
+  bottom: -55px ;
 
 }
-.carousel-indicators li{
+.carousel-indicators button{
   transition: all 300ms ease-in-out;
-  width: 8px;
-  height: 8px;
+  width: 8px !important;
+  height: 8px !important; 
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 1);
+  border-top: unset !important;
+  border-bottom: unset !important ;
 }
 .carousel-indicators .active{
-  background-color: rgba(0, 0, 0, 0.55) ;
+  background-color: rgba(0, 0, 0, 0.55) !important ;
   transform: scale(1.5);
   opacity: 1;
+}
+.carousel-control-prev{
+  display: none ;
+}
+.carousel-control-next{
+  display: none ;
 }
 /* CAROUSEL END CAROUSEL END*/
 
@@ -163,11 +177,13 @@
   margin-bottom: 40px;
 }
 .featured-product-card{
+  background-color: rgb(223, 222, 222);
   padding: 10px 10px;
   margin-bottom: 8px; 
   border: 1px solid transparent;
   transition: all 200ms ;
-  
+  display: flex ;
+  flex-direction: column;
 }
 .featured-product-card:hover{
   border: 1px solid var(--navbarBG);
@@ -190,8 +206,8 @@
 .card-meal-details{
   font-weight: 400;
   font-size: 13px;
-  margin-bottom: 0px;
-  min-height: 57px !important;
+  margin-bottom: 10px;
+
 }
 .card-meal-details p{
   margin-bottom: 0;
@@ -201,6 +217,7 @@
   margin-top: auto;
   align-items: center;
   width: 100%;
+  
 }
 .card-meal-footer .card-price{
   width: 50%;
@@ -268,7 +285,9 @@
   font-family: 'Assistant', sans-serif ;
   font-size: 14px;
   color:  var(--blackText);
-  
+}
+.footer-bottom-col ul li a:hover{
+  text-decoration:  underline !important;
 }
 
 .footer-copyright{
@@ -304,3 +323,22 @@
   cursor: pointer;
   transition: all 300ms ease;
 }
+/*
+            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+            <ol className="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div className="carousel-inner">
+                <div className="carousel-item active">
+                    <img src={hero1} alt="hero1" className="d-block w-100" />
+                </div>
+                <div className="carousel-item active">
+                    <img src={hero2} alt="hero1" className="d-block w-100" />
+                </div>
+                <div className="carousel-item active">
+                    <img src={hero2} alt="hero1" className="d-block w-100" />
+                </div>
+            </div>
+            </div>*/

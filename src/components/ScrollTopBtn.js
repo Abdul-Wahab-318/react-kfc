@@ -3,7 +3,6 @@ import upChevron from '../img/up-chevron-white.svg';
 
 function ScrollTopBtn()
 {
-  let scrollBtn = document.querySelector('#scrollBtn');
   function scrollBtnVisibility() {
     if(document.body.scrollTop>70 || document.documentElement.scrollTop > 70)
     {

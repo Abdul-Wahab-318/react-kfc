@@ -1,29 +1,28 @@
 import hero1 from '../img/hero-1.png';
 import hero2 from '../img/hero-2.png';
-
+import "../App.css";
 function Slider()
 {
     return(
         <div className="slider-parent container">
-            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-            <ol className="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div className="carousel-inner">
-                <div className="carousel-item active">
-                    <img src={hero1} alt="hero1" className="d-block w-100" />
+            <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div className="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                <div className="carousel-item active">
-                    <img src={hero2} alt="hero1" className="d-block w-100" />
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                    <img src= {hero1} className="d-block w-100" alt="..."/>
+                    </div>
+                    <div className="carousel-item" >
+                    <img src= {hero2} className="d-block w-100" alt="..."/>
+                    </div>
+                    <div className="carousel-item">
+                    <img src= {hero1} className="d-block w-100" alt="..."/>
+                    </div>
                 </div>
-                <div className="carousel-item active">
-                    <img src={hero2} alt="hero1" className="d-block w-100" />
                 </div>
-            </div>
-
-            </div>
         </div>
     )
 }

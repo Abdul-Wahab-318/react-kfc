@@ -4,6 +4,7 @@ import user from '../img/user.svg';
 import cart from '../img/cart-icon.png'
 function Header ()
 {
+
     return (
         <div className="header-parent" id="header">
             <div className="header-inner">
@@ -37,6 +38,7 @@ function Header ()
                     </ul>
                     <ul className="cart-parent">
                         <li><img src={cart} alt="cart"  width="40px"/></li>
+                        <span>0</span>
                     </ul>
                 </div>
             </div>
