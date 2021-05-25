@@ -1,4 +1,4 @@
-import upChevron from '../img/up-chevron-white.svg';
+/*import upChevron from '../img/up-chevron-white.svg';
 
 
 function ScrollTopBtn()
@@ -22,4 +22,4 @@ function ScrollTopBtn()
 
 
 
-export default ScrollTopBtn;
+export default ScrollTopBtn;*/
