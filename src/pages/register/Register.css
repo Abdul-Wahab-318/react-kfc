@@ -50,6 +50,9 @@
 .register-form{
     margin-top: 26px;
 }
+.register-form-inner .col-12 , .col-lg-6{
+    position: relative;
+}
 .register-form-inner input , textarea , select{
     width: 100%;
     border: none;
@@ -69,6 +72,9 @@
     width: unset;
     margin: unset;
 }
+.terms-conditions .error-handler{
+    top: 15px;
+}
 .terms-conditions > div{
     display: flex;
     align-items: center;
@@ -80,4 +86,19 @@
     margin: 0 0 0 8px;
     font-family: var(--assistant);
     font-size: 14px;
+}
+
+.error-handler{
+    display: block;
+    position: absolute;
+    top: 32px;
+    left: 15px;
+    color: var(--primary-red);
+    font-size: 12px;
+    font-family: var(--assistant);
+
+}
+
+.error-border{
+    border-bottom: 1px solid var(--primary-red) !important;
 }
