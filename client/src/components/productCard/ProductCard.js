@@ -2,7 +2,6 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './ProductCard.css'
 import krunch from '../../img/krunch-with-drink.png'
-import { products } from '../../data'
 export default function ProductCard(props) {
     let product = props.product 
     return (
@@ -18,8 +17,8 @@ export default function ProductCard(props) {
                         <p className="assistant">{product.description}</p>
                     </div>
                     <div className="card-meal-footer">
-                        <Link to={`/product/${product.id}`} className="card-price">PKR {product.price}</Link>
-                        <Link to={`/product/${product.id}`} className="add-to-bucket">add to bucket</Link>
+                        <Link to={`/product/${product._id}`} className="card-price">PKR {product.price}</Link>
+                        <Link to={`/product/${product._id}`} className="add-to-bucket">add to bucket</Link>
                     </div>
             </div>
         </div>

@@ -2,18 +2,16 @@ import React ,{useState , useEffect} from 'react'
 import './CategoryPage.css'
 import LeadText from '../../components/LeadText'
 import {useParams} from 'react-router-dom'
-//import {products} from '../../data'
 import ProductCard from '../../components/productCard/ProductCard'
 
 
 export default function ProductPage() {
     let {slug} = useParams();
-   // let myProducts = [...products]
-    let [loading , setLoading] = useState(false)
     let [products , setProducts] = useState([])
+
+
     let getProducts = async ()=>{
-        setLoading(true)
-        await fetch("http://localhost:3000/products").then((resp)=> resp.json()).then((data)=>setProducts(data) ).catch(console.log("failed"))
+        await fetch("http://localhost:8000/kfc/products").then(resp=> resp.json()).then(data=> setProducts(data.allProducts))
     }
 
     useEffect(()=>{

@@ -68,6 +68,7 @@
 }
 .login-form-inner input{
     width: 100%;
+    font-family: var(--assistant);
     border: none;
     border-bottom: 1px solid var(--primary-red);
     background-color: transparent;

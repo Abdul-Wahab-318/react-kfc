@@ -109,6 +109,17 @@
   padding : 10px 10px;
   position: relative;
 }
+.cart-parent li{
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  
+}
+.cart-parent li button{
+  border: none;
+  outline: none !important;
+  background-color: transparent;
+}
 .cart-parent img{
   display: block;
   margin-left: auto;
@@ -122,6 +133,7 @@
   display: block;
   font-size: 20px;
   color: white;
+  cursor: pointer;
 }
 /*NAVBAR END NAVBAR ENDS*/
 

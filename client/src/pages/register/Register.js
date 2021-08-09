@@ -4,15 +4,10 @@ import {Link} from 'react-router-dom'
 
 export default function Register() {
 
-
-    let [userInfo , setUserInfo] = useState({
-        email:""
-    })
     let [errors , setErrors] = useState({
         email: "",
         firstName : "",
-        lastName : "moment"
-
+        lastName : ""
     })
 
     let checkEmail = (e)=>{
@@ -46,7 +41,13 @@ export default function Register() {
         return false
     }
 
-    console.log(`userInfo : ${userInfo}`)
+    let [user,setUser] = useState({email:"" , password: "" , firstName:"" , lastName:"", address:"" , country:"pakistan" , province:"Punjab" , city:"" , prefix:"+92" , phone:"", zip:"" , activeOrders: [] , completedOrders: []})
+    
+    let handleSubmit = async ()=>{
+        await fetch("http://localhost:8000/kfc/users/create" , {method: "POST" , headers: {"Content-Type": "application/json"} , body: JSON.stringify(user)}).then(data=> data.json()).then(data=> console.log(data.error))
+        alert("ACCOUNT CREATED")
+    }
+
     return (
         <div className="register">
             <div className="custom-container">
@@ -65,13 +66,13 @@ export default function Register() {
                         <h1 className="register-heading">User account</h1>
                             <div className="row">
                                 <div className="col-12">
-                                    <input type="email" placeholder="Email *" onChange={(e)=>setUserInfo(e.target.value)} onBlur={(e)=>{checkEmail(e)}}/>
+                                    <input type="email" placeholder="Email *" value={user.email} onChange={e=> setUser({...user , email: e.target.value})}  onBlur={(e)=>{checkEmail(e)}}/>
                                     <span className="error-handler">{errors.email}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-lg-6">
-                                    <input type="password" placeholder="Password *" className="mb-0"  />
+                                    <input value={user.password} onChange={e=> setUser({...user , password: e.target.value})} type="password" placeholder="Password *" className="mb-0"  />
                                     <span className="d-none error-handler">Minimum eight and maximum sixteen characters, at least one letter and one special character</span>
                                 </div>
                                 <div className="col-lg-6">
@@ -84,46 +85,46 @@ export default function Register() {
                         <h1 className="register-heading">contact information</h1>
                             <div className="row">
                                 <div className="col-6">
-                                    <input type="text" placeholder="First Name *" onBlur={(e)=>checkFirstName(e)} />
+                                    <input value={user.firstName}  onChange={e=> setUser({...user , firstName: e.target.value})} type="text" placeholder="First Name *" onBlur={(e)=>checkFirstName(e)} />
                                     <span className="error-handler ">{errors.firstName}</span>
                                 </div>
 
                                 <div className="col-6">
-                                    <input type="text" placeholder="Last Name *" />
+                                    <input value={user.lastName}  onChange={e=> setUser({...user , lastName: e.target.value})} type="text" placeholder="Last Name *" />
                                     <span className="error-handler d-none">Please enter a valid name (min. 3 characters)</span>
                                 </div>
                                 <div className="col-12">
-                                    <textarea type="text" placeholder="Address *"  />
+                                    <textarea value={user.address}  onChange={e=> setUser({...user , address: e.target.value})} type="text"  placeholder="Address *"  />
                                     <span className="error-handler d-none">Please enter a valid address (min. 3 characters)</span>
                                 </div>
                                 <div className="col-4">
-                                    <select  placeholder="Country *" >
+                                    <select value={user.country}  onChange={e=> setUser({...user , country: e.target.value})} placeholder="Country *" >
                                         <option value="pakistan">Pakistan</option> 
                                         <option value="saudi arabia">KSA</option>
                                     </select>
                                 </div>
                                 <div className="col-4">
-                                    <select  placeholder="State/Province *" >
+                                    <select value={user.province}  onChange={e=> setUser({...user , province: e.target.value})}  placeholder="State/Province *" >
                                         <option value="Punjab">Punjab</option> 
                                         <option value="kpk">KPK</option>
                                     </select>
                                 </div>
                                 <div className="col-4">
-                                    <input type="text" placeholder="City *" />
+                                    <input value={user.city}  onChange={e=> setUser({...user , city : e.target.value})} type="text" placeholder="City *" />
                                     <span className="error-handler d-none">Enter city</span>
                                 </div>
                                 <div className="col-2">
-                                    <select type="text" placeholder="Prefix *" >
+                                    <select value={user.prefix}  onChange={e=> setUser({...user , prefix: e.target.value})} type="text" placeholder="Prefix *" >
                                         <option value="+92">+92</option> 
                                         <option value="+002">+002</option>
                                     </select>
                                 </div>
                                 <div className="col-4">
-                                    <input type="text" placeholder="Phone *"  />
+                                    <input value={user.phone}  onChange={e=> setUser({...user , phone: e.target.value})} type="text" placeholder="Phone *"  />
                                     <span className="error-handler d-none">Enter a valid number (7-digits)</span>
                                 </div>
                                 <div className="col-2">
-                                    <input type="text" placeholder="Post/Zip Code *" />
+                                    <input value={user.zip}  onChange={e=> setUser({...user , zip: e.target.value})} type="text" placeholder="Post/Zip Code *" />
                                     <span className="error-handler d-none"></span>
                                 </div>
                                 
@@ -141,7 +142,7 @@ export default function Register() {
                                 </div>
 
                                 <div className="col-12 mb-5">
-                                    <button className="sign-in" type="button" >CREATE ACCOUNT</button>
+                                    <button className="sign-in" type="button" onClick={()=> handleSubmit()} >CREATE ACCOUNT</button>
                                 </div>
 
 

@@ -13,12 +13,13 @@ import ProductPage from './pages/categoryPage/CategoryPage';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import ProductDetail from './pages/productDetail/ProductDetail';
-
+import { OrderListProvider } from './OrderedItems';
 
 function App() {
   return (
     <div className="App">
-      
+      <OrderListProvider>
+
       <Router>
       <Header/>
         <Switch>
@@ -48,6 +49,7 @@ function App() {
         <Footer/>
       </Router>
 
+      </OrderListProvider>
     </div>
   );
 }
