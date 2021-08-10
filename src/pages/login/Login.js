@@ -28,11 +28,11 @@ function Login() {
         label.classList.add('remove-form-label')
     }
 
-    let [user,setUser] = React.useState({email: "wahabmaliq@gmail.com" , password: "password123"})
-    console.log(user)
+    let [user,setUser] = React.useState({email: "" , password: ""})
+    console.log(user )
 
     let handleLogin = ()=>{
-        fetch("http://localhost:8000/kfc/users/login" , {method: "POST" ,credentials: 'include',withCredentials: true,headers:{"Content-type": "application/json"}, body: JSON.stringify(user)}).then(data=> data.json()).then(data=> console.log(data))
+        fetch("http://localhost:8000/kfc/users/login" , {method: "POST" ,credentials: 'include',withCredentials: true,headers:{"Content-type": "application/json"}, body: JSON.stringify(user)}).then(data=> data.json()).then(data=> console.log(data , "LOGGED IN"))
     }
 
     return (

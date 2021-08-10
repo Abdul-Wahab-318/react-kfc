@@ -13,7 +13,9 @@
   scroll-behavior: smooth;
   text-decoration: none !important;
 }
-
+.assistant{
+  font-family:'Assistant', sans-serif;
+}
 .container{
   max-width: 1140px !important;
   margin:  0 auto;
