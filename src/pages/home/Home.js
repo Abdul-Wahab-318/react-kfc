@@ -3,7 +3,7 @@ import './Home.css'
 import LeadText from "../../components/LeadText";
 import Slider from "../../components/Slider";
 import ProductCard from "../../components/productCard/ProductCard";
-import krunch from '../../img/krunch-with-drink.png'
+
 
 function Home()
 {

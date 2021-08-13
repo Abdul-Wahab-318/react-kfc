@@ -1,15 +1,19 @@
 import React , {useState} from 'react'
 import logo from '../img/kfc-colonel.svg'
 import pin from '../img/pin.svg'
-import user from '../img/user.svg'
+import userIcon from '../img/user.svg'
 import cart from '../img/cart-icon.png'
 import { Link } from 'react-router-dom'
 import { orderListContext } from '../OrderedItems'
 import SideBar from './sideBar/SideBar'
+import { UserInfoContext } from '../userInfo'
 function Header ()
 {
     let [orderItems , setOrderItems] = React.useContext(orderListContext)
     let [ sideBar , setSideBar ]= useState(false)
+    let [user , setUser] = React.useContext(UserInfoContext)
+
+    console.log(user.loggedIn , "HEADER")
 
     return (
         <div className="header-parent" id="header">
@@ -29,7 +33,7 @@ function Header ()
                     <div className="brand-logo"><Link to="/"><img src={logo} alt='logo'/></Link> </div>
                     <div className="login-parent">
                       <div className='store-locator'> <img src={pin} alt="location" /> <Link to="/login">Store locator</Link> </div>  
-                      <div className="login"> <img src={user} alt="user"/>  <Link to="/login">SIGN IN / REGISTER</Link>  </div>
+                      <div className="login"> <img src={userIcon} alt="user"/>  <Link to="/login">{user.loggedIn? "Account" : "SIGN IN / REGISTER"}</Link>  </div>
                     </div>
                 </div>
                 <div className="header-inner-navbar">

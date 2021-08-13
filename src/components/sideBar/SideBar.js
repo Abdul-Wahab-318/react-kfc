@@ -5,7 +5,7 @@ import  {orderListContext}  from '../../OrderedItems'
 
 export default function SideBar(props) {
     let [orderItems , setOrderItems] = React.useContext(orderListContext)
-
+    let [errors , setErrors] = useState([])
     let handleOrder = async ()=>{
 
         if(orderItems.length == 0 || bill < 250)
@@ -16,32 +16,21 @@ export default function SideBar(props) {
 
         await fetch("http://localhost:8000/kfc/order" ,
          {method:"POST", credentials:'include',headers: {'Content-type':"application/json"}
-          , body: JSON.stringify({items: orderItems ,user:{_id:"6103c672477fa233549eb8c2",name:"Abdul-Wahab", email:"wahabmaliq@gmail.com"}, bill})})
-          .then(data=> placedOrder(data.status))
+         ,body: JSON.stringify({items: orderItems ,user:{_id:"6103c672477fa233549eb8c2",name:"Abdul-Wahab", email:"wahabmaliq@gmail.com"}, location, bill})})
+          .then(data=> data.json()).then(data => placedOrder(data))
     }
 
-    let placedOrder = (status)=>{ //RUNS AFTER ORDER IS SENT TO SERVER AND RESPONSE IS RECIEVED
-        if(status === 400) //IF NOT LOGGED IN
+    let placedOrder = (data)=>{ //RUNS AFTER ORDER IS SENT TO SERVER AND RESPONSE IS RECIEVED
+        console.log(data)
+        if(data.error)
         {
-            alert("Must be logged in first")
-            console.log(document.cookie , "COOKEI")
-            return
-        }
-
-        if(status===200) //IF ORDER PLACED
-        {
-        
-            setOrderItems([])
-            setBill(0)
-            console.log("order placed")
+            console.log(Object.values(data.error))
+            setErrors(Object.values(data.error))
         }
     }
     let [bill,setBill] = useState(orderItems.reduce((accum,current)=>{return accum+current.price} , 0)) 
     let [location  , setLocation] = useState({city:"",area:""})
-    let handleChange = (el)=>{
-        //el.target.name
-        console.log(el.target.name)
-    }
+
     console.log(location)
 
     return (
@@ -57,13 +46,13 @@ export default function SideBar(props) {
                 </div>
                 <div className="address">
                     <h5>Select delivery area</h5>
-                    <input className="assistant" type="text" list="city" name="cities" id="cities" placeholder="City" spellCheck="false" onChange={(e)=> setLocation({...location , city:e.target.value })} onClick={(e)=> handleChange(e)} />
+                    <input className="assistant" type="text" list="city" name="cities" id="cities" placeholder="City" spellCheck="false" onChange={(e)=> setLocation({...location , city:e.target.value })} />
                     <datalist id="city">
                         <option value="rawalpindi">Rawalpindi</option>
                         <option value="islamabad">Islamabad</option>
                     </datalist>
 
-                    <input type="text" className="assistant mt-4" list="area" name="areas" id="areas" placeholder="Search Area" spellCheck="false"/>
+                    <input type="text" className="assistant mt-4" list="area" name="areas" id="areas" placeholder="Search Area" spellCheck="false" onChange={(e)=> setLocation({...location , area:e.target.value })}/>
                     <datalist id="area">
                         <option value="saddar">Saddar</option>
                         <option value="kashmir rd">Kashmir RD</option>
@@ -82,6 +71,7 @@ export default function SideBar(props) {
                     </div>
                 </div>
                 <button className="order-btn" onClick={()=> handleOrder() }>Order</button>
+                {errors.map((el,ind)=> <p className="text-center mt-4" key={ind}>{el.message}</p>)}
             </div>
         </main>
     )

@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom'
 import ProductCard from '../../components/productCard/ProductCard'
 
 
+
 export default function ProductPage() {
     let {slug} = useParams();
     let [products , setProducts] = useState([])

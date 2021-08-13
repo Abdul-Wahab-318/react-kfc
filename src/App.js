@@ -14,6 +14,7 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import ProductDetail from './pages/productDetail/ProductDetail';
 import { OrderListProvider } from './OrderedItems';
+import { UserInfoProvider } from './userInfo';
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
       <OrderListProvider>
 
       <Router>
-      <Header/>
+        <UserInfoProvider>
+          <Header/>
+   
         <Switch>
 
           <Route exact path="/">
@@ -29,7 +32,9 @@ function App() {
           </Route>
 
           <Route exact path="/category/:slug">
+            <UserInfoProvider>
             <ProductPage/>
+            </UserInfoProvider>
           </Route>
 
           <Route exact path="/product/:slug">
@@ -37,7 +42,9 @@ function App() {
           </Route>
 
           <Route exact path="/login">
-            <Login/>
+            
+              <Login/>
+        
           </Route>
 
           
@@ -47,6 +54,7 @@ function App() {
           
         </Switch>
         <Footer/>
+        </UserInfoProvider>
       </Router>
 
       </OrderListProvider>

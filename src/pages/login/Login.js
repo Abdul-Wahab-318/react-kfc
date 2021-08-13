@@ -1,42 +1,40 @@
-import React from 'react'
+import React , {useState} from 'react'
 import './Login.css' 
 import {Link} from 'react-router-dom'
+import UserProfile from '../../components/userProfile/UserProfile'
+import { UserInfoContext } from '../../userInfo'
 
 function Login() {
 
-    let removeFormLabel1 = (element)=>{
 
-        console.log(element)
+    let [formInfo,setFormInfo] = useState({email: "wahabmaliq@gmail.com" , password: "password123"})
 
-        let formItem = document.querySelector('#form-item')
-        let label = formItem.firstElementChild 
-        let inputElement = formItem.firstElementChild.nextElementSibling
-
-        if(inputElement.value==="")
-        label.classList.add('remove-form-label')
-
-    }
-    let removeFormLabel2 = (element)=>{
-        
-        //console.log(element)
-
-        let formItem = document.querySelector('#form-item2')
-        let label = formItem.firstElementChild 
-        let inputElement = formItem.firstElementChild.nextElementSibling
-
-        if(inputElement.value==="")
-        label.classList.add('remove-form-label')
-    }
-
-    let [user,setUser] = React.useState({email: "" , password: ""})
-    console.log(user )
+    let [user,setUser] = React.useContext(UserInfoContext)
 
     let handleLogin = ()=>{
-        fetch("http://localhost:8000/kfc/users/login" , {method: "POST" ,credentials: 'include',withCredentials: true,headers:{"Content-type": "application/json"}, body: JSON.stringify(user)}).then(data=> data.json()).then(data=> console.log(data , "LOGGED IN"))
+        fetch("http://localhost:8000/kfc/users/login" ,
+         {method: "POST" 
+         ,credentials: 'include'
+         ,withCredentials: true
+         ,headers:{"Content-type": "application/json"},
+          body: JSON.stringify(formInfo)})
+          .then(data=>  data.json())
+          .then(data=> setUser({...data.user,loggedIn: true}))
+    }
+
+    let isLoggedIn = ()=>{
+        console.log(user , "LOG IN PAGE")
+        if(user.loggedIn === true)
+        return true
+
+
+        return false
     }
 
     return (
+        
         <div className="login-parent">
+            {isLoggedIn() ? <UserProfile user={user}></UserProfile> : 
             <div className="container">
             <div className="login-inner">
                 <div className="login-inner-col">
@@ -49,13 +47,12 @@ function Login() {
                     <p className="assistant mb-4">Enter your e-mail address and password to log in.</p>
                     <div className="login-form">
                         <form action="" className="login-form-inner">
-                            <div className="form-item" id="form-item" onClick={()=>{removeFormLabel1(this)}}>
-                                <span>Email</span>
-                                <input type="email" placeholder="" value={user.email} onChange={(e)=> setUser({...user , email:e.target.value})}  />
+                            <div className="form-item" id="form-item" >
+                     
+                                <input  type="email" placeholder="Email" value={formInfo.email} onChange={(e)=> setFormInfo({...formInfo , email:e.target.value})}  />
                             </div>
-                            <div className="form-item"  id="form-item2" onClick={()=>{removeFormLabel2(this)}} onFocus={()=>removeFormLabel2(this)} >
-                                <span>Password</span>
-                                <input type="Password" value={user.password} onChange={(e)=> setUser({...user , password:e.target.value})} />
+                            <div className="form-item"  id="form-item2"  >
+                                <input placeholder="Password" type="Password" value={formInfo.password} onChange={(e)=> setFormInfo({...formInfo , password:e.target.value})} />
                             </div>
                             <button className="forgot-password"><Link to="/forgotpassword">Forgot password?</Link></button>
                             <button type="button" className="sign-in" onClick={()=> handleLogin()}>sign in</button>
@@ -70,6 +67,7 @@ function Login() {
                 </div>
             </div>
             </div>
+            }
         </div>
     )
 }
