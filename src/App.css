@@ -269,22 +269,25 @@
   cursor: pointer;
   transition: all 300ms ease;
 }
-/*
-            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-            <ol className="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div className="carousel-inner">
-                <div className="carousel-item active">
-                    <img src={hero1} alt="hero1" className="d-block w-100" />
-                </div>
-                <div className="carousel-item active">
-                    <img src={hero2} alt="hero1" className="d-block w-100" />
-                </div>
-                <div className="carousel-item active">
-                    <img src={hero2} alt="hero1" className="d-block w-100" />
-                </div>
-            </div>
-            </div>*/
+
+@media (max-width: 576px ) {
+    .brand-logo a img{
+      width: 60px;
+    }
+    .footer-bottom{
+      margin-top: 40px;
+      gap: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .footer-logo .back-to-top{
+      top: -35px;
+    }
+    .footer-bottom ul {
+      padding: 0px 10px;
+    }
+    .footer-bottom ul li {
+      text-align: center;
+    }
+}

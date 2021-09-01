@@ -12,25 +12,29 @@ function Login() {
     let [user,setUser] = React.useContext(UserInfoContext)
 
     let handleLogin = ()=>{
+
         fetch("http://localhost:8000/kfc/users/login" ,
          {method: "POST" 
          ,credentials: 'include'
          ,withCredentials: true
          ,headers:{"Content-type": "application/json"},
           body: JSON.stringify(formInfo)})
-          .then(data=>  data.json())
-          .then(data=> setUser({...data.user,loggedIn: true}))
+          .then(res=> {
+            if(!res.ok) throw new Error("not found")
+
+            return res.json()
+          } )
+          .then(data=> setUser({...data.user,loggedIn: true} , setFormInfo({email:"",password:""}))).catch(err=> alert(err))
     }
 
     let isLoggedIn = ()=>{
-        console.log(user , "LOG IN PAGE")
         if(user.loggedIn === true)
-        return true
-
+            return true
 
         return false
     }
 
+    
     return (
         
         <div className="login-parent">

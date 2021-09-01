@@ -36,6 +36,12 @@
   }
   .card-meal-details p{
     margin-bottom: 0;
+
+    width: 100%;
+    
+    /**Major Properties**/
+    overflow:hidden;
+    max-height: 41px;
   }
   .card-meal-footer{
     display: flex;

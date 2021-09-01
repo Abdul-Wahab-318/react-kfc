@@ -7,13 +7,18 @@ import { Link } from 'react-router-dom'
 import { orderListContext } from '../OrderedItems'
 import SideBar from './sideBar/SideBar'
 import { UserInfoContext } from '../userInfo'
+//Redux
+import {useDispatch , useSelector} from 'react-redux'
+
 function Header ()
 {
     let [orderItems , setOrderItems] = React.useContext(orderListContext)
     let [ sideBar , setSideBar ]= useState(false)
     let [user , setUser] = React.useContext(UserInfoContext)
+    let counter = useSelector(state=> state)
+    const dispatch = useDispatch()
 
-    console.log(user.loggedIn , "HEADER")
+
 
     return (
         <div className="header-parent" id="header">
@@ -30,7 +35,7 @@ function Header ()
                     <div className="dec-red"></div>
                 </div>
                 <div className="header-inner-brand">
-                    <div className="brand-logo"><Link to="/"><img src={logo} alt='logo'/></Link> </div>
+                    <div className="brand-logo" onClick={()=>     dispatch({type:'INCREMENT'})}><Link to="/"><img src={logo} alt='logo'/></Link> </div>
                     <div className="login-parent">
                       <div className='store-locator'> <img src={pin} alt="location" /> <Link to="/login">Store locator</Link> </div>  
                       <div className="login"> <img src={userIcon} alt="user"/>  <Link to="/login">{user.loggedIn? "Account" : "SIGN IN / REGISTER"}</Link>  </div>
@@ -52,7 +57,7 @@ function Header ()
                     </ul>
                 </div>
             </div>
-            {sideBar? <SideBar setSideBar={setSideBar}/> : <div className="d-none"></div>}
+            {sideBar? <SideBar setSideBar={setSideBar} user={[user,setUser]}/> : <div className="d-none"></div>}
         </div>
     )
 }

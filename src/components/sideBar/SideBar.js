@@ -1,11 +1,17 @@
 import './SideBar.css'
 import React, { useState } from 'react'
 import  {orderListContext}  from '../../OrderedItems'
-
+import { UserInfoContext } from '../../userInfo'
 
 export default function SideBar(props) {
     let [orderItems , setOrderItems] = React.useContext(orderListContext)
+    let [user , setUser] = props.user
+ 
     let [errors , setErrors] = useState([])
+    
+    let [bill,setBill] = useState(orderItems.reduce((accum,current)=>{return accum+current.price} , 0)) 
+    let [location  , setLocation] = useState({city:"",area:""})
+    
     let handleOrder = async ()=>{
 
         if(orderItems.length == 0 || bill < 250)
@@ -15,22 +21,25 @@ export default function SideBar(props) {
         }
 
         await fetch("http://localhost:8000/kfc/order" ,
-         {method:"POST", credentials:'include',headers: {'Content-type':"application/json"}
-         ,body: JSON.stringify({items: orderItems ,user:{_id:"6103c672477fa233549eb8c2",name:"Abdul-Wahab", email:"wahabmaliq@gmail.com"}, location, bill})})
+         {method:"POST",
+         credentials:'include',
+         headers: {'Content-type':"application/json"}
+         ,body: JSON.stringify({items: orderItems ,user:{_id:user._id,name:user.name, email:user.email}, location, bill})})
           .then(data=> data.json()).then(data => placedOrder(data))
     }
-
     let placedOrder = (data)=>{ //RUNS AFTER ORDER IS SENT TO SERVER AND RESPONSE IS RECIEVED
         console.log(data)
+
         if(data.error)
         {
             console.log(Object.values(data.error))
             setErrors(Object.values(data.error))
+            return
         }
-    }
-    let [bill,setBill] = useState(orderItems.reduce((accum,current)=>{return accum+current.price} , 0)) 
-    let [location  , setLocation] = useState({city:"",area:""})
 
+        setOrderItems([])
+        setBill(0)
+    }
     console.log(location)
 
     return (

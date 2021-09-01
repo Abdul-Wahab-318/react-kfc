@@ -124,3 +124,20 @@
     padding: 6px 22px;
     align-self: flex-start;
 }
+
+
+@media (max-width: 576px) {
+    .login-inner{
+        display: block;
+    }
+    .login-inner .login-inner-col{
+        padding: 0;
+        border: none;
+    }
+    .login-inner-col-heading{
+        margin: 20px 0;
+    }
+    .login-inner-col:last-child{
+        margin: 50px 0 ;
+    }
+}

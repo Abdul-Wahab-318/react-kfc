@@ -74,7 +74,7 @@
     display: block;
     margin: 0 auto;
     background-color: var(--primary-red);
-    color: var(--white);
+    color: var(--primary-white);
     border: none;
     padding: 8px 30px;
 }

@@ -52,6 +52,10 @@ function App() {
             <Register/>
           </Route>
           
+          <Route exact path="*">
+            <h1 className="text-center my-5">you are lost lol</h1>
+          </Route>
+          
         </Switch>
         <Footer/>
         </UserInfoProvider>

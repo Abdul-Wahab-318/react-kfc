@@ -43,7 +43,7 @@ function Footer()
                                 <li><a href="index.html">Terms & Conditions</a></li>
                             </ul>
                         </div>
-                        <div className="footer-bottom-col">
+                        <div className="footer-bottom-col d-none d-lg-flex">
                             <ul>
                                 <li><a href="index.html"><img src={appStore} width="150px" alt="" /></a></li>
                                 <li><a href="index.html"><img src={playStore} width="150px" alt="" /></a></li>
