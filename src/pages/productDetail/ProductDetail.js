@@ -1,58 +1,48 @@
 import React , {useState , useEffect,useContext} from 'react'
 import {useParams} from 'react-router-dom'
+import { useAlert } from 'react-alert'
 import kfc from '../../img/krunch-with-drink.png'
+import {useSelector , useDispatch} from 'react-redux'
+import {store} from '../../redux/store'
 import './ProductDetail.css'
 
-import { orderListContext } from '../../OrderedItems'
 
 export default function ProductDetail() {
 
     let [quantity, setQuantity] = useState(1)
-    let  {slug} = useParams()
+    let {slug} = useParams()
     let [product, setProduct] = useState({})
-    let getProduct = ()=>{
-        fetch(`http://localhost:8000/kfc/products/productID/${slug}`).then((resp)=>resp.json()).then((data)=>setProduct(data.product))
-    }
-    useEffect(()=>{
-        getProduct()
-    },[])
+    let alert = useAlert()
 
-    //import orderList (ITEMS IN BUCKET)
-    let [orderList , setOrderList] = useContext(orderListContext)
-    //INCREMENT DECREMENT PRODUCT QUANTITY
+    let getProduct = ()=>{
+        fetch(`http://localhost:8000/kfc/products/productID/${slug}`)
+        .then((resp)=>resp.json())
+        .then((data)=>setProduct(data.product))
+    }
+    
+    //INCREMENT PRODUCT QUANTITY
     let increment = ()=>{
         setQuantity(++quantity)
     }
-
+    //DECREMENT PRODUCT QUANTITY
     let decrement = ()=>{
         if(quantity===1) return
         setQuantity(--quantity)
     }
-    
-    let isSameProduct = (product)=>{
-        for(let element of orderList)
-        {
-            if(element.title===product.title)
-            {
-                console.log("same prod")
-                element.price = (element.price/element.quantity)*(quantity+element.quantity) // multiply unit price by total quantity (a simpler solution exists but idc)
-                element.quantity = element.quantity + quantity //update quantity
-                console.log(element)
-                return true
-            }
-        }
-        return false
-    }
 
+    let orderItems = useSelector(state=> state.orderItemsReducer)
+    const dispatch = useDispatch()
     let handleSubmit = ()=>{
-        
-        if(isSameProduct(product))
-        return
-
-        setOrderList([...orderList , {title:product.title , quantity , price: product.price*quantity}])
-        console.log(orderList)
+        dispatch({type: 'ADD_TO_CART' , payload: {...product,quantity , price : product.price*quantity}})
+        alert.success('Added to cart')
+        let cartItems = store.getState().cartItemsReducer.cartItems
+        localStorage.setItem("cartItems" , JSON.stringify(cartItems))
     }
 
+    useEffect(()=>{
+        getProduct()
+    },[])
+    
     return (
         <div className="product-detail-parent">
             <div className="container">

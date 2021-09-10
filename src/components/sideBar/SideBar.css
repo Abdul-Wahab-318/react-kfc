@@ -58,7 +58,7 @@
     border-bottom: 1px solid rgb(228, 226, 226);
     margin-top: 20px;
 }
-.order-list .order-list-item div{
+.order-list .order-list-item div:first-child{
     display: flex;
     justify-content: space-between;
 }
@@ -77,4 +77,19 @@
     color: var(--primary-white);
     border: none;
     padding: 8px 30px;
+}
+.list-item-actions{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.list-item-actions button{
+    padding: 5px; 
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 15px;
+}
+.list-item-actions button i{
+    font-size: 12px;
 }

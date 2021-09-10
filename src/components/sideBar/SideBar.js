@@ -1,22 +1,34 @@
 import './SideBar.css'
 import React, { useState } from 'react'
-import  {orderListContext}  from '../../OrderedItems'
-import { UserInfoContext } from '../../userInfo'
-
+import {useSelector , useDispatch} from 'react-redux'
+import SideBarListItem from '../sideBarListItem/SideBarListItem'
+import {store} from '../../redux/store'
 export default function SideBar(props) {
-    let [orderItems , setOrderItems] = React.useContext(orderListContext)
-    let [user , setUser] = props.user
- 
-    let [errors , setErrors] = useState([])
     
-    let [bill,setBill] = useState(orderItems.reduce((accum,current)=>{return accum+current.price} , 0)) 
+    const dispatch = useDispatch()
+    let [user , setUser] = props.user
     let [location  , setLocation] = useState({city:"",area:""})
+    let [errors , setErrors] = useState([])
+
+    let cartItems  = useSelector(state=> state.cartItemsReducer.cartItems)
+    let [bill,setBill] = useState(cartItems.reduce((accum,current) => accum + current.price , 0)) 
+
+    React.useEffect(()=>{
+        setBill(cartItems.reduce((accum,current) => accum + current.price , 0))
+    }, [cartItems])
+    
     
     let handleOrder = async ()=>{
 
-        if(orderItems.length == 0 || bill < 250)
+        if(cartItems.length == 0 || bill < 250)
         {
             alert("Add more items to cart . Total bill must be atleast PKR 250")
+            return
+        }
+
+        if( location.city == "" || location.area == "")
+        {
+            alert("City and Area are required")
             return
         }
 
@@ -24,7 +36,7 @@ export default function SideBar(props) {
          {method:"POST",
          credentials:'include',
          headers: {'Content-type':"application/json"}
-         ,body: JSON.stringify({items: orderItems ,user:{_id:user._id,name:user.name, email:user.email}, location, bill})})
+         ,body: JSON.stringify({items: cartItems ,user:{_id:user._id,name:user.name, email:user.email}, location, bill})})
           .then(data=> data.json()).then(data => placedOrder(data))
     }
     let placedOrder = (data)=>{ //RUNS AFTER ORDER IS SENT TO SERVER AND RESPONSE IS RECIEVED
@@ -36,11 +48,9 @@ export default function SideBar(props) {
             setErrors(Object.values(data.error))
             return
         }
-
-        setOrderItems([])
+        dispatch({type:"EMPTY_CART"})
         setBill(0)
     }
-    console.log(location)
 
     return (
 
@@ -69,12 +79,7 @@ export default function SideBar(props) {
                 </div>
                 <div className="order-list">
                     <h5 className="text-center">Order Details</h5>
-                    {orderItems.map((el,ind)=>{
-                        return <div className="order-list-item" key={ind}>
-                            <div><span>{el.title}</span> <span>PKR {el.price}</span></div>
-                            <p>{el.quantity } x { el.price/el.quantity}</p>
-                        </div>
-                    })}
+                    {cartItems.map((el,ind)=>  <SideBarListItem product = {el} key={ind} /> )}
                     <div className="mt-4 d-flex justify-content-between">
                     <span className="fs-4">Your total : </span> <span className="fs-4 text-danger">PKR {bill}</span>
                     </div>

@@ -44,8 +44,18 @@ export default function Register() {
     let [user,setUser] = useState({email:"" , password: "" , firstName:"" , lastName:"", address:"" , country:"pakistan" , province:"Punjab" , city:"" , prefix:"+92" , phone:"", zip:"" , activeOrders: [] , completedOrders: []})
     
     let handleSubmit = async ()=>{
-        await fetch("http://localhost:8000/kfc/users/create" , {method: "POST" , headers: {"Content-Type": "application/json"} , body: JSON.stringify(user)}).then(data=> data.json()).then(data=> console.log(data.error))
+        await fetch("http://localhost:8000/kfc/users/create" ,
+        {method: "POST" ,
+        headers: {"Content-Type": "application/json"} ,
+        body: JSON.stringify(user)})
+        .then(data=> data.json())
+        .then(data=> { 
+            if(data.error)
+            alert(data.error)
+        })
         alert("ACCOUNT CREATED")
+
+        setUser({email:"" , password: "" , firstName:"" , lastName:"", address:"" , country:"pakistan" , province:"Punjab" , city:"" , prefix:"+92" , phone:"", zip:"" , activeOrders: [] , completedOrders: []})
     }
 
     return (
