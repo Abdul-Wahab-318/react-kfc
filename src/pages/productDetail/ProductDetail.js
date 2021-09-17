@@ -48,7 +48,7 @@ export default function ProductDetail() {
             <div className="container">
                 <section className="product-detail-inner">
                     <div className="product-img">
-                        <img src={kfc} width="100%" alt=""  />
+                        <img src={product.image} width="100%" alt=""  />
                     </div>
                     <div className="product-detail-caption">
                         <h1>{product.title}</h1>
