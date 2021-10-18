@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {Link} from 'react-router-dom'
 import './ProductCard.css'
 import krunch from '../../img/krunch-with-drink.png'
 export default function ProductCard(props) {
     let product = props.product 
+
     return (
         <div className="featured-product-card">
                 <div className="featured-product-card-inner">
                     <div className="card-image">
-                        <img width="100%" src={product.image} loading="eager" alt="" />
+                        <img  width="100%" src={product.image} loading="eager" alt="" />
                     </div>
                     <div className="card-meal-name">
                         <p className="mb-0">{product.title}</p>

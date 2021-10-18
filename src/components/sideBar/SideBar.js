@@ -6,7 +6,8 @@ import {store} from '../../redux/store'
 export default function SideBar(props) {
     
     const dispatch = useDispatch()
-    let [user , setUser] = props.user
+    let user = props.user
+    console.log(user)
     let [location  , setLocation] = useState({city:"",area:""})
     let [errors , setErrors] = useState([])
 

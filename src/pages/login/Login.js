@@ -3,42 +3,47 @@ import './Login.css'
 import {Link} from 'react-router-dom'
 import UserProfile from '../../components/userProfile/UserProfile'
 import { UserInfoContext } from '../../userInfo'
+import {useSelector , useDispatch} from 'react-redux'
+
+
 
 function Login() {
 
-
+    const dispatch = useDispatch()
     let [formInfo,setFormInfo] = useState({email: "wahabmaliq@gmail.com" , password: "password123"})
 
-    let [user,setUser] = React.useContext(UserInfoContext)
+    let user = useSelector (state => state.userReducer)
+
 
     let handleLogin = ()=>{
 
         fetch("http://localhost:8000/kfc/users/login" ,
-         {method: "POST" 
-         ,credentials: 'include'
-         ,withCredentials: true
-         ,headers:{"Content-type": "application/json"},
-          body: JSON.stringify(formInfo)})
+         {
+            method: "POST" 
+            ,credentials: 'include'
+            ,withCredentials: true
+            ,headers:{"Content-type": "application/json"},
+            body: JSON.stringify(formInfo)})
           .then(res=> {
             if(!res.ok) throw new Error("not found")
 
             return res.json()
           } )
-          .then(data=> setUser({...data.user,loggedIn: true} , setFormInfo({email:"",password:""}))).catch(err=> alert(err))
+          .then(data=> dispatch({ type:"LOGIN_SUCCESS" ,  payload : data.user }) ).catch(err=> alert(err))
     }
 
     let isLoggedIn = ()=>{
-        if(user.loggedIn === true)
+        if(user.isLoggedIn === true)
             return true
 
         return false
     }
-
+    
     
     return (
         
         <div className="login-parent">
-            {isLoggedIn() ? <UserProfile user={user}></UserProfile> : 
+            {isLoggedIn() ? <UserProfile user={user.user}></UserProfile> : 
             <div className="container">
             <div className="login-inner">
                 <div className="login-inner-col">

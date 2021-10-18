@@ -2,9 +2,13 @@ import './UserProfile.css'
 import React , {useState , useEffect} from 'react'
 import ActiveOrderItem from '../activeOrderItem/ActiveOrderItem'
 import { UserInfoContext } from '../../userInfo'
+import {useSelector , useDispatch} from 'react-redux'
 
 export default function UserProfile(props) {
-    let [user,setUser] = React.useContext(UserInfoContext)
+    
+    let user = props.user
+    console.log(user) 
+    //let [user,setUser] = React.useContext(UserInfoContext)
     let [activeOrders , setActiveOrders] = useState(false)
 
     let getActiveOrders = async ()=>{
@@ -18,7 +22,7 @@ export default function UserProfile(props) {
          {method : "POST" 
          ,headers:{"Content-type": "application/json"},
          credentials: "include"
-        }).then(data=> setUser({  loggedIn : false}))
+        }).then(data=> console.log("logged out"))
     }
 
 
@@ -28,7 +32,7 @@ export default function UserProfile(props) {
 
     
 
-    return (
+    return (     
         <main className="user-profile-parent container">
             <section className="hero-section ">
              <div className="personal-details">

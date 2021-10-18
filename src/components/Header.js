@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom'
 import SideBar from './sideBar/SideBar'
 import { UserInfoContext } from '../userInfo'
 //Redux
-import {useDispatch , useSelector} from 'react-redux'
+import { useSelector} from 'react-redux'
 
 function Header ()
 {
     let cartItems = useSelector(state=> state.cartItemsReducer.cartItems)
     let [ sideBar , setSideBar ]= useState(false)
-    let [user , setUser] = React.useContext(UserInfoContext)
-
+    let  user = useSelector(state => state.userReducer)
+    console.log(user)
     return (
         <div className="header-parent" id="header">
             <div className="header-inner">
@@ -52,8 +52,9 @@ function Header ()
                     </ul>
                 </div>
             </div>
-            {sideBar? <SideBar setSideBar={setSideBar} user={[user,setUser]}/> : <div className="d-none"></div>}
+            {sideBar? <SideBar setSideBar={setSideBar} user={user.user}/> : <div className="d-none"></div>}
         </div>
+        
     )
 }
 
