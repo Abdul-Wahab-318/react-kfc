@@ -5,7 +5,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-
+import { Elements } from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 import Home from './pages/home/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,8 +16,13 @@ import Register from './pages/register/Register';
 import ProductDetail from './pages/productDetail/ProductDetail';
 import { OrderListProvider } from './OrderedItems';
 import { UserInfoProvider } from './userInfo';
+import Shipping from './pages/shipping/Shipping';
+import Payment from './pages/payment/Payment';
+
+const stripePromise = loadStripe('pk_test_51JmH5OGFsyW28IZDENWS0plIwH9VnoIX9rikZCKXPSOlsssryHEmaFimAdqfUHxKXwmBdwqpWNrc6JvUDDP60Rb000bYTEgOha');
 
 function App() {
+
   return (
     <div className="App">
       <OrderListProvider>
@@ -42,14 +48,18 @@ function App() {
           </Route>
 
           <Route exact path="/login">
-            
               <Login/>
-        
           </Route>
 
           
           <Route exact path="/register">
             <Register/>
+          </Route>
+
+          <Route exact path="/payment">
+            <Elements stripe={stripePromise}>
+              <Payment/>
+            </Elements>
           </Route>
           
           <Route exact path="*">

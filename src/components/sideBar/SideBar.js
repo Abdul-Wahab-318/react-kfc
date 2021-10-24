@@ -1,5 +1,6 @@
 import './SideBar.css'
 import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
 import {useSelector , useDispatch} from 'react-redux'
 import SideBarListItem from '../sideBarListItem/SideBarListItem'
 import {store} from '../../redux/store'
@@ -85,7 +86,7 @@ export default function SideBar(props) {
                     <span className="fs-4">Your total : </span> <span className="fs-4 text-danger">PKR {bill}</span>
                     </div>
                 </div>
-                <button className="order-btn" onClick={()=> handleOrder() }>Order</button>
+                <Link to="/payment" className="order-btn w-75" >Proceed to Checkout</Link>
                 {errors.map((el,ind)=> <p className="text-center mt-4" key={ind}>{el.message}</p>)}
             </div>
         </main>

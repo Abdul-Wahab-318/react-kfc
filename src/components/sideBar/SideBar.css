@@ -78,6 +78,9 @@
     border: none;
     padding: 8px 30px;
 }
+.order-btn:hover{
+    color: var(--primary-white);
+}
 .list-item-actions{
     display: flex;
     justify-content: space-evenly;
