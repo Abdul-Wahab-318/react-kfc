@@ -5,7 +5,6 @@ import userIcon from '../img/user.svg'
 import cart from '../img/cart-icon.png'
 import { Link } from 'react-router-dom'
 import SideBar from './sideBar/SideBar'
-import { UserInfoContext } from '../userInfo'
 //Redux
 import { useSelector} from 'react-redux'
 
