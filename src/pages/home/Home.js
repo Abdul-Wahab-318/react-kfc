@@ -9,7 +9,7 @@ function Home()
 {
     let [featuredProducts , setFeaturedProducts] = React.useState([])
     let getFeaturedProducts = async()=>{
-        await fetch("http://localhost:8000/kfc/products")
+        await fetch("https://kfc-backend.herokuapp.com/kfc/products")
         .then(res=> res.json())
         .then(data=>{
             setFeaturedProducts(data.allProducts.filter(el=> el.category === "featured"))

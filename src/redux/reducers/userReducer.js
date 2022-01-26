@@ -21,8 +21,11 @@ export let userReducer = ( state = initialState , action)=>{
             isLoggedIn : true
         }
 
-
-            
+        case 'LOGOUT':
+            return{
+                user : {} ,
+                isLoggedIn : false
+            }
 
         default:
             return state

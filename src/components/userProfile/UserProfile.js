@@ -6,9 +6,8 @@ import {useSelector , useDispatch} from 'react-redux'
 
 export default function UserProfile(props) {
     
+    const dispatch = useDispatch()
     let user = props.user
-    console.log(user) 
-    //let [user,setUser] = React.useContext(UserInfoContext)
     let [activeOrders , setActiveOrders] = useState(false)
 
     let getActiveOrders = async ()=>{
@@ -23,6 +22,10 @@ export default function UserProfile(props) {
          ,headers:{"Content-type": "application/json"},
          credentials: "include"
         }).then(data=> console.log("logged out"))
+
+
+        dispatch( { type : 'LOGOUT' } )
+
     }
 
 

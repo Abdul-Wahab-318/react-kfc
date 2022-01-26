@@ -12,7 +12,7 @@ export default function ProductPage() {
 
 
     let getProducts = async ()=>{
-        await fetch("http://localhost:8000/kfc/products").then(resp=> resp.json()).then(data=> setProducts(data.allProducts))
+        await fetch("https://kfc-backend.herokuapp.com/kfc/products").then(resp=> resp.json()).then(data=> setProducts(data.allProducts))
     }
 
     useEffect(()=>{
