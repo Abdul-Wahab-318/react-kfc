@@ -10,13 +10,13 @@ export default function UserProfile(props) {
     let [activeOrders , setActiveOrders] = useState(false)
 
     let getActiveOrders = async ()=>{
-        await fetch(`https://kfc-admin.netlify.app/kfc/order/user/activeOrders/${user._id}`)
+        await fetch(`https://kfc-backend.herokuapp.com/kfc/order/user/activeOrders/${user._id}`)
         .then(res=> res.json()) 
         .then(data=> setActiveOrders(data.orders))
     }
 
     let handleLogOut = async ()=>{
-        await fetch("https://kfc-admin.netlify.app/kfc/users/logout" ,
+        await fetch("https://kfc-backend.herokuapp.com/kfc/users/logout" ,
          {method : "POST" 
          ,headers:{"Content-type": "application/json"},
          credentials: "include"

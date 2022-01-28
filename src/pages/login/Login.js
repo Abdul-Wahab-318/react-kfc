@@ -17,7 +17,7 @@ function Login() {
 
     let handleLogin = ()=>{
 
-        fetch("https://kfc-admin.netlify.app/kfc/users/login" ,
+        fetch("https://kfc-backend.herokuapp.com/kfc/users/login" ,
          {
             method: "POST" 
             ,credentials: 'include'
