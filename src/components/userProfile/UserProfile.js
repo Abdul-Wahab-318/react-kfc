@@ -1,7 +1,6 @@
 import './UserProfile.css'
 import React , {useState , useEffect} from 'react'
 import ActiveOrderItem from '../activeOrderItem/ActiveOrderItem'
-import { UserInfoContext } from '../../userInfo'
 import {useSelector , useDispatch} from 'react-redux'
 
 export default function UserProfile(props) {
@@ -11,13 +10,13 @@ export default function UserProfile(props) {
     let [activeOrders , setActiveOrders] = useState(false)
 
     let getActiveOrders = async ()=>{
-        await fetch(`http://localhost:8000/kfc/order/user/activeOrders/${user._id}`)
+        await fetch(`https://kfc-admin.netlify.app/kfc/order/user/activeOrders/${user._id}`)
         .then(res=> res.json()) 
         .then(data=> setActiveOrders(data.orders))
     }
 
     let handleLogOut = async ()=>{
-        await fetch("http://localhost:8000/kfc/users/logout" ,
+        await fetch("https://kfc-admin.netlify.app/kfc/users/logout" ,
          {method : "POST" 
          ,headers:{"Content-type": "application/json"},
          credentials: "include"

@@ -10,14 +10,14 @@ import {useSelector , useDispatch} from 'react-redux'
 function Login() {
 
     const dispatch = useDispatch()
-    let [formInfo,setFormInfo] = useState({email: "wahabmaliq@gmail.com" , password: "password123"})
+    let [formInfo,setFormInfo] = useState({email: "" , password: ""})
 
     let user = useSelector (state => state.userReducer)
 
 
     let handleLogin = ()=>{
 
-        fetch("http://localhost:8000/kfc/users/login" ,
+        fetch("https://kfc-admin.netlify.app/kfc/users/login" ,
          {
             method: "POST" 
             ,credentials: 'include'
