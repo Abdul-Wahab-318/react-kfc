@@ -296,6 +296,53 @@
     .brand-logo a img{
       width: 60px;
     }
+    .header-inner-dec{
+      display: none;
+    }
+    .header-inner-brand {
+      padding: 10px 0 0 0;
+    }
+    .store-locator{
+      display: none;
+    }
+    .login-parent .login img {
+      width: 13px;
+    }
+    .login-parent .login a{
+      font-size: 15px ;
+    }
+    .navbar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .navbar li a {
+      display: block;
+      font-size: 14px;
+      padding: 0 5px;
+    }
+
+    .cart-parent{
+      display: flex;
+      align-items: center ;
+      justify-content: center;
+
+    }
+    .cart-parent img {
+      width: 30px;
+    }
+    .cart-parent button {
+      position: relative;
+    }
+    .cart-parent span {
+      display: block;
+      width: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50% , -50%);
+      font-size: 16px;
+      text-align: center;
+    }
     .footer-bottom{
       margin-top: 40px;
       gap: 0;

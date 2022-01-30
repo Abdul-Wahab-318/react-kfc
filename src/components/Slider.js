@@ -1,5 +1,8 @@
 import hero1 from '../img/hero-1.png';
 import hero2 from '../img/hero-2.png';
+import xs_1 from '../img/xs-slider-1.jpg'
+import xs_2 from '../img/xs-slider-2.jpg'
+import xs_3 from '../img/xs-slider-3.jpg'
 import "../App.css";
 function Slider()
 {
@@ -13,13 +16,16 @@ function Slider()
                 </div>
                 <div className="carousel-inner">
                     <div className="carousel-item active">
-                    <img src= {hero1} className="d-block w-100" alt="..."/>
+                    <img src= {hero1} className="d-none d-sm-block w-100" alt="..."/>
+                    <img src= {xs_1} className="d-block d-sm-none w-100" alt="..."/>
                     </div>
                     <div className="carousel-item" >
-                    <img src= {hero2} className="d-block w-100" alt="..."/>
+                    <img src= {hero2} className="d-none d-sm-block w-100" alt="..."/>
+                    <img src= {xs_2} className="d-block d-sm-none w-100" alt="..."/>
                     </div>
                     <div className="carousel-item">
-                    <img src= {hero1} className="d-block w-100" alt="..."/>
+                    <img src= {hero1} className="d-none d-sm-block w-100" alt="..."/>
+                    <img src= {xs_3} className="d-block d-sm-none w-100" alt="..."/>
                     </div>
                 </div>
                 </div>

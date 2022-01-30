@@ -7,3 +7,11 @@
     grid-template-rows: 1fr;
     margin-bottom: 40px;
   }
+
+@media (max-width : 576px)
+{
+  .featured-products-parent {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

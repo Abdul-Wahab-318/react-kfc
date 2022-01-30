@@ -1,5 +1,6 @@
 import React , {useState} from 'react'
 import logo from '../img/kfc-colonel.svg'
+import logo_xs from '../img/kfc_xs.png'
 import pin from '../img/pin.svg'
 import userIcon from '../img/user.svg'
 import cart from '../img/cart-icon.png'
@@ -29,7 +30,12 @@ function Header ()
                     <div className="dec-red"></div>
                 </div>
                 <div className="header-inner-brand">
-                    <div className="brand-logo"><Link to="/"><img src={logo} alt='logo'/></Link> </div>
+                    <div className="brand-logo">
+                        <Link to="/">
+                            <img src={logo} className='d-none d-sm-block' alt='logo'/>
+                            <img src={logo_xs} className='d-block d-sm-none'  alt='logo'/>
+                        </Link>
+                    </div>
                     <div className="login-parent">
                       <div className='store-locator'> <img src={pin} alt="location" /> <Link to="/login">Store locator</Link> </div>  
                       <div className="login"> <img src={userIcon} alt="user"/>  <Link to="/login">{user.loggedIn? "Account" : "SIGN IN / REGISTER"}</Link>  </div>
@@ -46,8 +52,12 @@ function Header ()
                         <li><Link to="/category/midnight-deals" className="pr-0">midnight deals</Link></li>
                     </ul>
                     <ul className="cart-parent">
-                        <li onClick={()=> setSideBar(!sideBar)}><button><img src={cart} alt="cart"  width="40px"/></button></li>
-                        <span>{cartItems.length}</span>
+                        <li onClick={()=> setSideBar(!sideBar)}>
+                            <button>
+                                <img src={cart} alt="cart"  width="40px"/>
+                                <span>{cartItems.length}</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>

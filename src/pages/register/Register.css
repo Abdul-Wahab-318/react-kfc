@@ -47,6 +47,9 @@
 .register-heading{
     font-size: 27px;
 }
+.contact-info-form .row :is(.col-6 , .col-4 , .col-12 , .col-2) {
+    position: relative;
+}
 .register-form{
     margin-top: 26px;
 }
@@ -101,4 +104,22 @@
 
 .error-border{
     border-bottom: 1px solid var(--primary-red) !important;
+} 
+
+@media (max-width : 576px)
+{
+    .register-form-inner :is(input , textarea , select ) {
+        margin-bottom: 20px !important;
+    }
+    .contact-info-form .row .col-2 {
+        width: 33.33%;
+    }
+    .terms-conditions{
+        margin-top: 30px;
+        padding-left: 15px !important;
+    }
+    .terms-conditions input[type="checkbox"]
+    {
+        margin-bottom: 0 !important;
+    }
 }

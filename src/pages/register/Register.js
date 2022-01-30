@@ -1,49 +1,17 @@
 import React , {useState} from 'react'
 import './Register.css'
+import {useAlert} from 'react-alert'
+import { useFormik } from 'formik';
+import * as Yup from "yup";
 import {Link} from 'react-router-dom'
 
 export default function Register() {
 
-    let [errors , setErrors] = useState({
-        email: "",
-        firstName : "",
-        lastName : ""
-    })
+    const alert = useAlert()
+    const URL = "http://localhost:8000"
 
-    let checkEmail = (e)=>{
-
-        if(e.target.value.length < 5 || e.target.value.search("@")==-1 || e.target.value.search(".com")==-1)
-        {
-            setErrors({...errors , email : "Please enter a valid email"})
-            return
-        }
-        setErrors({...errors , email : ""})
-        
-    }
-
-    let checkFirstName = (e) =>{
-
-        if(!isGreaterThanThree(e))
-        {
-            setErrors({...errors , firstName: "Enter valid name (min 3-digits)"})
-            return
-        }
-
-        setErrors({...errors , firstName: ""})
-
-    }
-
-    let isGreaterThanThree = (e)=>{
-        if(e.target.value.length >=3)
-        {
-            return true
-        }
-        return false
-    }
-
-    let [user,setUser] = useState({email:"" , password: "" , firstName:"" , lastName:"", address:"" , country:"pakistan" , province:"Punjab" , city:"" , prefix:"+92" , phone:"", zip:"" , activeOrders: [] , completedOrders: []})
-    
-    let handleSubmit = async ()=>{
+    let handleSubmit = async (values)=>{
+/*
         await fetch("https://kfc-backend.herokuapp.com/kfc/users/create" ,
         {method: "POST" ,
         headers: {"Content-Type": "application/json"} ,
@@ -51,12 +19,107 @@ export default function Register() {
         .then(data=> data.json())
         .then(data=> { 
             if(data.error)
-            alert(data.error)
+            {
+                alert(JSON.stringify(data.error))
+            }
+            else
+            {
+                alert.success("Account created")
+            }
         })
-        alert("ACCOUNT CREATED")
-
-        setUser({email:"" , password: "" , firstName:"" , lastName:"", address:"" , country:"pakistan" , province:"Punjab" , city:"" , prefix:"+92" , phone:"", zip:"" , activeOrders: [] , completedOrders: []})
+*/
     }
+
+    const formik = useFormik({
+        
+        initialValues : {
+            email : "" ,
+            password : "" ,
+            repeatPassword : "" ,
+            firstName : "" ,
+            lastName : "" ,
+            address : "" ,
+            country : "pakistan" ,
+            province : "punjab" ,
+            city : "rawalpindi" ,
+            prefix : "+92" ,
+            phone : '' ,
+            zip : ""
+        } ,
+
+        validationSchema : Yup.object({
+            email : Yup.string()
+            .email("Invalid email address")
+            .required("Email is requried") ,
+
+            password : Yup.string().required()
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+                "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character")
+              .required("Password is required") ,
+              
+            repeatPassword : Yup.string()
+            .oneOf([Yup.ref("password"), null], "Passwords must match")
+            .required("Enter password again"),
+
+            firstName : Yup.string()
+            .min(2)
+            .max(20)
+            .required("First name is required") ,
+
+            lastName : Yup.string()
+            .min(2)
+            .max(20)
+            .required("Last name is required") ,
+
+            address : Yup.string()
+            .min(5)
+            .max(100)
+            .required("Address is required") ,
+
+            country : Yup.string().required().lowercase(),
+
+            province : Yup.string()
+            .required("Province is required") ,
+
+            city : Yup.string()
+            .required("City is required") ,
+
+            prefix : Yup.string().required() ,
+
+            phone : Yup.string().length(10).matches(/^\d{10}$/ , "Must contain numbers only").required() ,
+
+            zip : Yup.string().required()
+        }) ,
+
+
+
+        onSubmit: async (values , {setSubmitting}) => {
+            
+            delete values.repeatPassword
+            console.log(values)
+            await fetch(`${URL}/kfc/users/create` ,
+            {method: "POST" ,
+            headers: {"Content-Type": "application/json"} ,
+            body: JSON.stringify(values)})
+            .then(data=> data.json())
+            .then(data=> { 
+                if(data.error)
+                {
+                    alert.error(JSON.stringify(data.error))
+                }
+                else
+                {
+                    alert.success("Account created")
+                    formik.resetForm()
+                }
+            })
+
+        } ,
+
+
+    })
+    console.log(formik.errors)
 
     return (
         <div className="register">
@@ -71,23 +134,30 @@ export default function Register() {
                 </div>
 
                 <div className="register-form ">
-                    <form action="" className="register-form-inner ">
+                    <form className="register-form-inner " onSubmit={formik.handleSubmit}>
                         <div className="user-account-form">
                         <h1 className="register-heading">User account</h1>
                             <div className="row">
                                 <div className="col-12">
-                                    <input type="email" placeholder="Email *" value={user.email} onChange={e=> setUser({...user , email: e.target.value})}  onBlur={(e)=>{checkEmail(e)}}/>
-                                    <span className="error-handler">{errors.email}</span>
+                                    <input type="email" placeholder="Email *" {...formik.getFieldProps('email')}  />
+                                    {formik.touched.email && formik.errors.email ? (
+                                        <div className='error-handler'>{formik.errors.email}</div>
+                                    ) : null}
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-lg-6">
-                                    <input value={user.password} onChange={e=> setUser({...user , password: e.target.value})} type="password" placeholder="Password *" className="mb-0"  />
-                                    <span className="d-none error-handler">Minimum eight and maximum sixteen characters, at least one letter and one special character</span>
+                                    <input {...formik.getFieldProps('password')} type="password" placeholder="Password *" className="mb-0"   />
+                                    {formik.touched.password && formik.errors.password ? (
+                                        <div className='error-handler'>{formik.errors.password}</div>
+                                    ) : null}
                                 </div>
                                 <div className="col-lg-6">
-                                    <input type="password" placeholder="Repeat Password *" className="mb-0"  />
-                                    <span className="error-handler d-none">Passwords must match</span>
+                                    <input type="password" placeholder="Repeat Password *" className="mb-0" {...formik.getFieldProps('repeatPassword')}  />
+                                    {formik.touched.repeatPassword && formik.errors.repeatPassword ? 
+                                    (
+                                        <div className='error-handler'>{formik.errors.repeatPassword}</div>
+                                    ) : null}
                                 </div>
                             </div>
                         </div>
@@ -95,67 +165,76 @@ export default function Register() {
                         <h1 className="register-heading">contact information</h1>
                             <div className="row">
                                 <div className="col-6">
-                                    <input value={user.firstName}  onChange={e=> setUser({...user , firstName: e.target.value})} type="text" placeholder="First Name *" onBlur={(e)=>checkFirstName(e)} />
-                                    <span className="error-handler ">{errors.firstName}</span>
+                                    <input type="text" placeholder="First Name *" {...formik.getFieldProps('firstName')} />
+                                    {formik.touched.firstName && formik.errors.firstName ? (
+                                        <div className='error-handler'>{formik.errors.firstName}</div>
+                                    ) : null}
                                 </div>
 
                                 <div className="col-6">
-                                    <input value={user.lastName}  onChange={e=> setUser({...user , lastName: e.target.value})} type="text" placeholder="Last Name *" />
-                                    <span className="error-handler d-none">Please enter a valid name (min. 3 characters)</span>
+                                    <input {...formik.getFieldProps('lastName')} type="text" placeholder="Last Name *" />
+                                    {formik.touched.lastName && formik.errors.lastName ? (
+                                        <div className='error-handler'>{formik.errors.lastName}</div>
+                                    ) : null}
                                 </div>
                                 <div className="col-12">
-                                    <textarea value={user.address}  onChange={e=> setUser({...user , address: e.target.value})} type="text"  placeholder="Address *"  />
-                                    <span className="error-handler d-none">Please enter a valid address (min. 3 characters)</span>
+                                    <textarea {...formik.getFieldProps('address')} type="text"  placeholder="Address *"  />
+                                    {formik.touched.address && formik.errors.address ? (
+                                        <div className='error-handler'>{formik.errors.address}</div>
+                                    ) : null}
                                 </div>
                                 <div className="col-4">
-                                    <select value={user.country}  onChange={e=> setUser({...user , country: e.target.value})} placeholder="Country *" >
-                                        <option value="pakistan">Pakistan</option> 
-                                        <option value="saudi arabia">KSA</option>
+                                    <select {...formik.getFieldProps('country')}  >
+                                        <option value="pakistan">Country</option>
+                                        <option value="pakistan" >pakistan</option> 
+                                        <option value="ksa">ksa</option>
                                     </select>
                                 </div>
                                 <div className="col-4">
-                                    <select value={user.province}  onChange={e=> setUser({...user , province: e.target.value})}  placeholder="State/Province *" >
-                                        <option value="Punjab">Punjab</option> 
-                                        <option value="kpk">KPK</option>
+                                    <select {...formik.getFieldProps('province')} placeholder="State/Province *" >
+                                        <option value="punjab" >punjab</option> 
+                                        <option value="kpk">kpk</option>
                                     </select>
                                 </div>
                                 <div className="col-4">
-                                    <input value={user.city}  onChange={e=> setUser({...user , city : e.target.value})} type="text" placeholder="City *" />
-                                    <span className="error-handler d-none">Enter city</span>
+                                    <input {...formik.getFieldProps('city')} type="text" placeholder="City *" />
+                                    {formik.touched.city && formik.errors.city ? (
+                                        <div className='error-handler'>{formik.errors.city}</div>
+                                    ) : null}
                                 </div>
                                 <div className="col-2">
-                                    <select value={user.prefix}  onChange={e=> setUser({...user , prefix: e.target.value})} type="text" placeholder="Prefix *" >
+                                    <select {...formik.getFieldProps('prefix')} type="text" placeholder="Prefix *" >
                                         <option value="+92">+92</option> 
                                         <option value="+002">+002</option>
                                     </select>
                                 </div>
                                 <div className="col-4">
-                                    <input value={user.phone}  onChange={e=> setUser({...user , phone: e.target.value})} type="text" placeholder="Phone *"  />
-                                    <span className="error-handler d-none">Enter a valid number (7-digits)</span>
+                                    <input {...formik.getFieldProps('phone')}  placeholder="Phone *"  />
+                                    {formik.touched.phone && formik.errors.phone ? (
+                                        <div className='error-handler'>{formik.errors.phone}</div>
+                                    ) : null}
                                 </div>
-                                <div className="col-2">
-                                    <input value={user.zip}  onChange={e=> setUser({...user , zip: e.target.value})} type="text" placeholder="Post/Zip Code *" />
-                                    <span className="error-handler d-none"></span>
+                                <div className="col-2 " >
+                                    <input {...formik.getFieldProps('zip')} type="text" placeholder="Post/Zip Code *" />
+                                    {formik.touched.zip && formik.errors.zip ? (
+                                        <div className='error-handler'>{formik.errors.zip}</div>
+                                    ) : null}
                                 </div>
                                 
                                 <div className="terms-conditions px-0">
                                     <div className="col-12">
                                         <input type="checkbox" id="checkbox1" /> 
-                                        <span className="error-handler d-none">Box must be Checked</span>
                                         <label htmlFor="checkbox1">I agree with the terms and conditions.</label>
                                     </div>
                                     <div className="col-12">
                                         <input type="checkbox" id="checkbox2" />
-                                        <span className="error-handler d-none">Box must be Checked</span>
                                         <label htmlFor="checkbox2">I wish to receive emails about new promotions/deals/products.</label>
                                     </div>
                                 </div>
 
                                 <div className="col-12 mb-5">
-                                    <button className="sign-in" type="button" onClick={()=> handleSubmit()} >CREATE ACCOUNT</button>
+                                    <button className="sign-in" type="submit">CREATE ACCOUNT</button>
                                 </div>
-
-
 
                             </div>
                         </div>
@@ -163,6 +242,7 @@ export default function Register() {
                 </div>
                 
             </div>
+            
         </div>
     )
 }
