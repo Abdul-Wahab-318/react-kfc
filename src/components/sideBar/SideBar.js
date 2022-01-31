@@ -13,10 +13,10 @@ export default function SideBar(props) {
     let [errors , setErrors] = useState([])
 
     let cartItems  = useSelector(state=> state.cartItemsReducer.cartItems)
-    let [bill,setBill] = useState(cartItems.reduce((accum,current) => accum + (current.price * current.quantity) , 0)) 
+    let [bill,setBill] = useState(cartItems.reduce((accum,current) => accum + (current.price /** current.quantity*/) , 0)) 
 
     React.useEffect(()=>{
-        setBill(cartItems.reduce((accum,current) => accum + (current.price * current.quantity) , 0))
+        setBill(cartItems.reduce((accum,current) => accum + (current.price /** current.quantity*/) , 0))
     }, [cartItems])
     
     
@@ -87,7 +87,7 @@ export default function SideBar(props) {
                     </div>
                 </div>
                 
-                <Link to="/payment" className="order-btn w-75" onClick={()=> props.setSideBar(false)} >Proceed to Checkout</Link>
+                <Link to="/viewCart" className="order-btn w-75" onClick={()=> props.setSideBar(false)} >Proceed to Checkout</Link>
                 {errors.map((el,ind)=> <p className="text-center mt-4" key={ind}>{el.message}</p>)}
             </div>
         </main>

@@ -18,6 +18,8 @@ import { OrderListProvider } from './OrderedItems';
 import { UserInfoProvider } from './userInfo';
 import Shipping from './pages/shipping/Shipping';
 import Payment from './pages/payment/Payment';
+import ViewCart from './pages/viewCart/ViewCart';
+import Checkout from './pages/checkout/Checkout';
 
 const stripePromise = loadStripe('pk_test_51JmH5OGFsyW28IZDENWS0plIwH9VnoIX9rikZCKXPSOlsssryHEmaFimAdqfUHxKXwmBdwqpWNrc6JvUDDP60Rb000bYTEgOha');
 
@@ -54,6 +56,14 @@ function App() {
           
           <Route exact path="/register">
             <Register/>
+          </Route>
+
+          <Route exact path="/viewCart">
+            <ViewCart/>
+          </Route>
+
+          <Route exact path="/checkout">
+            <Checkout/>
           </Route>
 
           <Route exact path="/payment">

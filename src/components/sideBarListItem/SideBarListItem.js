@@ -34,7 +34,7 @@ export default function SideBarListItem(props) {
         updateLocalStorage()
     }
     return (
-        <div className="list-item">
+        <div className="list-item mt-3">
              <div className="order-list-item">
                 <div><span>{product.title}</span> <span>PKR {product.price}</span></div>
                 <p>{product.quantity } x PKR { product.price/product.quantity}</p>

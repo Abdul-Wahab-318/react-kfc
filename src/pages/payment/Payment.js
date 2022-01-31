@@ -31,7 +31,7 @@ export default function Payment() {
           return;
         }
         
-        let client_secret = await fetch("http://localhost:8000/kfc/payment" , {
+        let client_secret = await fetch("https://kfc-backend.herokuapp.com/kfc/payment" , {
             method : 'POST' ,
             credentials : 'include' , 
             headers : {'Content-type' : 'application/json'},
