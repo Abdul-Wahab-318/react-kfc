@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './ViewCart.css'
@@ -7,8 +7,8 @@ import './ViewCart.css'
 export default function ViewCart() {
 
     let cartItems  = useSelector(state=> state.cartItemsReducer.cartItems)
-    let bill = useSelector(state => state.cartItemsReducer.cartItems).reduce ( (accum , current) => accum.price + current.price )
-    console.log(bill)
+    let [ bill , setBill ] = useState( cartItems.reduce( ( accum , current ) => ( accum + current.price ) , 0))
+
 
   return (
 
