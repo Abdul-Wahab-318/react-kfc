@@ -12,3 +12,16 @@
     color: var(--primary-red);
     font-size: 18px;
 }
+.order-summary-details  {
+    display: flex;
+    justify-content: space-between;
+
+}
+.order-summary-details:nth-child(3) {
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(231, 229, 229 , 0.7);
+}
+.order-summary-details span {
+    font-family: var(--assistant);
+    padding: 3px 0;
+}

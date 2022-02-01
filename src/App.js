@@ -20,6 +20,7 @@ import Shipping from './pages/shipping/Shipping';
 import Payment from './pages/payment/Payment';
 import ViewCart from './pages/viewCart/ViewCart';
 import Checkout from './pages/checkout/Checkout';
+import ProtectRoute from './components/protectRoute/ProtectRoute';
 
 const stripePromise = loadStripe('pk_test_51JmH5OGFsyW28IZDENWS0plIwH9VnoIX9rikZCKXPSOlsssryHEmaFimAdqfUHxKXwmBdwqpWNrc6JvUDDP60Rb000bYTEgOha');
 
@@ -59,16 +60,16 @@ function App() {
           </Route>
 
           <Route exact path="/viewCart">
-            <ViewCart/>
+            <ProtectRoute component = {Checkout} />
           </Route>
 
           <Route exact path="/checkout">
-            <Checkout/>
+            <ProtectRoute component = {Checkout} />
           </Route>
 
           <Route exact path="/payment">
             <Elements stripe={stripePromise}>
-              <Payment/>
+              <ProtectRoute component = {Payment} />
             </Elements>
           </Route>
           

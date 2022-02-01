@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import './Checkout.css'
 import { useSelector } from 'react-redux';
 import CheckOutLogIn from '../../components/checkOutLogIn/CheckOutLogIn';
@@ -6,14 +6,18 @@ export default function Checkout() {
 
 
     let isLoggedIn = useSelector(state => state.userReducer.isLoggedIn)
-    let cartItems = useSelector(state => state.cartItemsReducer.cartItems)
-    console.log(cartItems)
+    let [ cartItems , setCartItems ] = useState( useSelector(state => state.cartItemsReducer.cartItems) )
+    let [ subtotal , setSubTotal ] = useState( cartItems.reduce( ( accum , current) => accum + current.price , 0  ) )
+    let shippingBill = 30 
+    let [ total , setTotal ] = useState( subtotal + shippingBill )
+
+
   return(
-    <div className='checkout-component container'>
+    <main className='checkout-component container'>
         <div className="checkout-inner">
+            <h1 className='text-center mt-4'>CHECKOUT</h1>
             <div className="row">
-                <div className="col-md-8 checkout-left mt-4">
-                    <h1 className='text-center'>CHECKOUT</h1>
+                <section className="col-md-8 checkout-left mt-4">
                     <div className="kfc-cards">
                         {isLoggedIn ? "this nibba logged ino" : <CheckOutLogIn/>}
 
@@ -35,12 +39,26 @@ export default function Checkout() {
                         </div>
 
                     </div>
-                </div>
-                <div className="col-md-4 checkout-right">
-
-                </div>
+                </section>
+                <section className="col-md-4 checkout-right mt-4">
+                    <div className="order-summary kfc-card">
+                        <h3>ORDER SUMMARY</h3>
+                        <div className='order-summary-details'>
+                            <span>Subtotal</span>
+                            <span>PKR {subtotal}</span>
+                        </div>
+                        <div className='order-summary-details'>
+                            <span>Shipping</span>
+                            <span> PKR { shippingBill}</span>
+                        </div>
+                        <div className="order-summary-details mt-3">
+                            <h3>TOTAL</h3>
+                            <h3>PKR {total}</h3>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
-    </div>
+    </main>
   );
 }
