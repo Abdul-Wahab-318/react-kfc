@@ -96,3 +96,9 @@
 .list-item-actions button i{
     font-size: 12px;
 }
+.side-bar-skeleton {
+    font-family: var(--assistant);
+    text-align: center;
+    margin-top: 50%;
+    font-size: 14px;
+}

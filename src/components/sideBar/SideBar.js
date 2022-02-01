@@ -3,9 +3,11 @@ import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import {useSelector , useDispatch} from 'react-redux'
 import SideBarListItem from '../sideBarListItem/SideBarListItem'
+import { useAlert } from 'react-alert'
 import {store} from '../../redux/store'
 export default function SideBar(props) {
     
+    const alert = useAlert()
     const dispatch = useDispatch()
     let user = props.user
     console.log(user)
@@ -24,22 +26,24 @@ export default function SideBar(props) {
 
         if(cartItems.length == 0 || bill < 250)
         {
-            alert("Add more items to cart . Total bill must be atleast PKR 250")
+            alert.error("Add more items to cart . Total bill must be atleast PKR 250")
             return
         }
 
         if( location.city == "" || location.area == "")
         {
-            alert("City and Area are required")
+            alert.error("City and Area are required")
             return
         }
 
         await fetch("http://localhost:8000/kfc/order" ,
-         {method:"POST",
-         credentials:'include',
-         headers: {'Content-type':"application/json"}
-         ,body: JSON.stringify({items: cartItems ,user:{_id:user._id,name:user.name, email:user.email}, location, bill})})
-          .then(data=> data.json()).then(data => placedOrder(data))
+         {
+            method:"POST",
+            headers: {'Content-type':"application/json"},
+            credentials:'include',
+            withCredentials : true ,
+            body: JSON.stringify({items: cartItems ,user:{_id:user._id,name:user.name, email:user.email}, location, bill})})
+            .then(data=> data.json()).then(data => placedOrder(data))
     }
     let placedOrder = (data)=>{ //RUNS AFTER ORDER IS SENT TO SERVER AND RESPONSE IS RECIEVED
         console.log(data)
@@ -65,30 +69,37 @@ export default function SideBar(props) {
                     <span>YOUR BUCKET</span>
                     <span>PKR {bill}</span>
                 </div>
-                <div className="address">
-                    <h5>Select delivery area</h5>
-                    <input className="assistant" type="text" list="city" name="cities" id="cities" placeholder="City" spellCheck="false" onChange={(e)=> setLocation({...location , city:e.target.value })} />
-                    <datalist id="city">
-                        <option value="rawalpindi">Rawalpindi</option>
-                        <option value="islamabad">Islamabad</option>
-                    </datalist>
+                {cartItems.length == 0 ? <div className='side-bar-skeleton'>Hungry? Add something to your bucket</div> : 
 
-                    <input type="text" className="assistant mt-4" list="area" name="areas" id="areas" placeholder="Search Area" spellCheck="false" onChange={(e)=> setLocation({...location , area:e.target.value })}/>
-                    <datalist id="area">
-                        <option value="saddar">Saddar</option>
-                        <option value="kashmir rd">Kashmir RD</option>
-                    </datalist>
-                </div>
-                <div className="order-list">
-                    <h5 className="text-center">Order Details</h5>
-                    {cartItems.map((el,ind)=>  <SideBarListItem product = {el} key={ind} /> )}
-                    <div className="mt-4 d-flex justify-content-between">
-                    <span className="fs-4">Your total : </span> <span className="fs-4 text-danger">PKR {bill}</span>
+                    <div className="side-bar-content-inner">
+                        <div className="address">
+                            <h5>Select delivery area</h5>
+                            <input className="assistant" type="text" list="city" name="cities" id="cities" placeholder="City" spellCheck="false" onChange={(e)=> setLocation({...location , city:e.target.value })} />
+                            <datalist id="city">
+                                <option value="rawalpindi">Rawalpindi</option>
+                                <option value="islamabad">Islamabad</option>
+                            </datalist>
+        
+                            <input type="text" className="assistant mt-4" list="area" name="areas" id="areas" placeholder="Search Area" spellCheck="false" onChange={(e)=> setLocation({...location , area:e.target.value })}/>
+                            <datalist id="area">
+                                <option value="saddar">Saddar</option>
+                                <option value="kashmir rd">Kashmir RD</option>
+                            </datalist>
+                        </div>
+                        <div className="order-list">
+                            <h5 className="text-center">Order Details</h5>
+                            {cartItems.map((el,ind)=>  <SideBarListItem product = {el} key={ind} /> )}
+                            <div className="mt-4 d-flex justify-content-between">
+                            <span className="fs-4">Your total : </span> <span className="fs-4 text-danger">PKR {bill}</span>
+                            </div>
+                        </div>
+                        
+                        <Link to="/viewCart" className="order-btn w-75" onClick={()=> props.setSideBar(false)} >Proceed to Checkout</Link>
+                        {errors.map((el,ind)=> <p className="text-center mt-4" key={ind}>{el.message}</p>)}
+                        <button onClick={handleOrder}>bruv order ere mate</button>
                     </div>
-                </div>
-                
-                <Link to="/viewCart" className="order-btn w-75" onClick={()=> props.setSideBar(false)} >Proceed to Checkout</Link>
-                {errors.map((el,ind)=> <p className="text-center mt-4" key={ind}>{el.message}</p>)}
+
+                }
             </div>
         </main>
     )
