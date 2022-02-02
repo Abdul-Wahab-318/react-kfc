@@ -60,7 +60,7 @@ function App() {
           </Route>
 
           <Route exact path="/viewCart">
-            <ProtectRoute component = {Checkout} />
+            <ProtectRoute component = {ViewCart} />
           </Route>
 
           <Route exact path="/checkout">

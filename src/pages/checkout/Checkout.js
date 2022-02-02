@@ -2,6 +2,7 @@ import React , {useState} from 'react';
 import './Checkout.css'
 import { useSelector } from 'react-redux';
 import CheckOutLogIn from '../../components/checkOutLogIn/CheckOutLogIn';
+import PaymentOption from '../../components/paymentOption/PaymentOption';
 export default function Checkout() {
 
 
@@ -19,7 +20,7 @@ export default function Checkout() {
             <div className="row">
                 <section className="col-md-8 checkout-left mt-4">
                     <div className="kfc-cards">
-                        {isLoggedIn ? "this nibba logged ino" : <CheckOutLogIn/>}
+                        {isLoggedIn ? <PaymentOption/> : <CheckOutLogIn/>}
 
                         <div className="kfc-card mt-4">
                             <div className="shopping-bag">
@@ -56,6 +57,7 @@ export default function Checkout() {
                             <h3>PKR {total}</h3>
                         </div>
                     </div>
+                    <button className="order-btn mt-4 w-100 fs-5">PLACE ORDER</button>
                 </section>
             </div>
         </div>

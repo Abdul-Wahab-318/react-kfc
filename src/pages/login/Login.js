@@ -17,7 +17,7 @@ function Login() {
 
     let handleLogin = ()=>{
 
-        fetch("https://kfc-backend.herokuapp.com/kfc/users/login" ,
+        fetch("http://localhost:8000/kfc/users/login" ,
          {
             method: "POST" 
             ,credentials: 'include'
@@ -29,7 +29,11 @@ function Login() {
 
             return res.json()
           } )
-          .then(data=> dispatch({ type:"LOGIN_SUCCESS" ,  payload : data.user }) ).catch(err=> alert(err))
+          .then(data=> {
+
+            dispatch({ type:"LOGIN_SUCCESS" ,  payload : data.user })
+            console.log(data)
+          } ).catch(err=> alert(err))
     }
 
     let isLoggedIn = ()=>{

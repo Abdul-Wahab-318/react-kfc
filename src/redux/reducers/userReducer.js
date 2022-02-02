@@ -15,11 +15,17 @@ export let userReducer = ( state = initialState , action)=>{
 
 
         case 'LOGIN_SUCCESS':
-        return{
+            return{
             ...state,
             user : action.payload,
             isLoggedIn : true
-        }
+            }
+
+        case 'SAVE_LOCATION':
+            return{
+                ...state ,
+                location : action.payload
+            }
 
         case 'LOGOUT':
             return{

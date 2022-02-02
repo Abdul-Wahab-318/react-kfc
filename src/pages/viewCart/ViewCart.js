@@ -39,11 +39,11 @@ export default function ViewCart() {
                 <img src= {el.image} alt="" width="100px" />
                 <div className="card-content-description-inner ms-3">
                     <h5>{el.title}</h5>
-                    <span>{el.quantity} x PKR {el.price}</span>
+                    <span>{el.quantity} x PKR {el.price / el.quantity}</span>
                 </div>
             </div>
             <div className="card-content-amount text-danger fs-5">
-                    PKR {el.quantity * el.price}
+                    PKR {el.price}
             </div>
         </div>
     )}

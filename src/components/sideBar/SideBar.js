@@ -10,7 +10,7 @@ export default function SideBar(props) {
     const alert = useAlert()
     const dispatch = useDispatch()
     let user = props.user
-    console.log(user)
+
     let [location  , setLocation] = useState({city:"",area:""})
     let [errors , setErrors] = useState([])
 
@@ -36,15 +36,16 @@ export default function SideBar(props) {
             return
         }
 
-        await fetch("http://localhost:8000/kfc/order" ,
+        dispatch( {type : "SAVE_LOCATION" , payload : location})
+
+        /*await fetch("http://localhost:8000/kfc/order" ,
          {
             method:"POST",
             headers: {'Content-type':"application/json"},
             credentials:'include',
-            withCredentials : true ,
             body: JSON.stringify({items: cartItems ,user:{_id:user._id,name:user.name, email:user.email}, location, bill})})
-            .then(data=> data.json()).then(data => placedOrder(data))
-    }
+            .then(data=> data.json()).then(data => placedOrder(data))*/
+         }
     let placedOrder = (data)=>{ //RUNS AFTER ORDER IS SENT TO SERVER AND RESPONSE IS RECIEVED
         console.log(data)
 
@@ -94,9 +95,9 @@ export default function SideBar(props) {
                             </div>
                         </div>
                         
-                        <Link to="/viewCart" className="order-btn w-75" onClick={()=> props.setSideBar(false)} >Proceed to Checkout</Link>
+                        <Link to="/viewCart" className="order-btn w-75" onClick={()=> { props.setSideBar(false) ; handleOrder() }  } >Proceed to Checkout</Link>
                         {errors.map((el,ind)=> <p className="text-center mt-4" key={ind}>{el.message}</p>)}
-                        <button onClick={handleOrder}>bruv order ere mate</button>
+
                     </div>
 
                 }
