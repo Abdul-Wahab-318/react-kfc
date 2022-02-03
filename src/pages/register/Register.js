@@ -3,32 +3,13 @@ import './Register.css'
 import {useAlert} from 'react-alert'
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import {Link} from 'react-router-dom'
+import { Link , useHistory } from 'react-router-dom'
 
 export default function Register() {
 
+    const history = useHistory()
     const alert = useAlert()
-    const URL = "http://localhost:8000"
-
-    let handleSubmit = async (values)=>{
-/*
-        await fetch("https://kfc-backend.herokuapp.com/kfc/users/create" ,
-        {method: "POST" ,
-        headers: {"Content-Type": "application/json"} ,
-        body: JSON.stringify(user)})
-        .then(data=> data.json())
-        .then(data=> { 
-            if(data.error)
-            {
-                alert(JSON.stringify(data.error))
-            }
-            else
-            {
-                alert.success("Account created")
-            }
-        })
-*/
-    }
+    const URL = "https://kfc-backend.herokuapp.com"
 
     const formik = useFormik({
         
@@ -112,6 +93,7 @@ export default function Register() {
                 {
                     alert.success("Account created")
                     formik.resetForm()
+                    history.push("/login")
                 }
             })
 
@@ -119,7 +101,6 @@ export default function Register() {
 
 
     })
-    console.log(formik.errors)
 
     return (
         <div className="register">
@@ -185,7 +166,7 @@ export default function Register() {
                                 </div>
                                 <div className="col-4">
                                     <select {...formik.getFieldProps('country')}  >
-                                        <option value="pakistan">Country</option>
+                                        <option value="">Country</option>
                                         <option value="pakistan" >pakistan</option> 
                                         <option value="ksa">ksa</option>
                                     </select>

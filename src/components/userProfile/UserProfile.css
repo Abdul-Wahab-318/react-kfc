@@ -76,3 +76,32 @@
     gap: 30px;
     align-items: flex-start;
 }
+
+@media (max-width : 576px)
+{
+    .user-profile-parent .hero-section{
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .hero-section button {
+        margin-left: 0 !important;
+        margin-top: 10px;
+    }
+    .personal-details p {
+        margin-bottom: 8px;
+    }
+    .user-profile-parent h6 {
+        font-size: 20px;
+    }
+    .user-details .order-details{
+        padding: 15px;
+    }
+    .order-details-inner{
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .active-order-item-details {
+        padding-left: 20px !important;
+    }
+}
