@@ -42,3 +42,13 @@
     margin: 20px 0 0 0 ;
     font-size: 20px;
 }
+
+@media (max-width : 576px)
+{
+    .product-detail-parent .container .product-detail-inner {
+        grid-template-columns: 1fr ;
+    }
+    .add-bucket-btn{
+        padding: 10px 25px;
+    }
+}

@@ -17,7 +17,7 @@ function Login() {
 
     let handleLogin = ()=>{
 
-        fetch("http://localhost:8000/kfc/users/login" ,
+        fetch("https://kfc-backend.herokuapp.com/kfc/users/login" ,
          {
             method: "POST" 
             ,credentials: 'include'
@@ -32,6 +32,7 @@ function Login() {
           .then(data=> {
 
             dispatch({ type:"LOGIN_SUCCESS" ,  payload : data.user })
+            localStorage.setItem("userCredentials" , JSON.stringify( data.user ) )
             console.log(data)
           } ).catch(err=> alert(err))
     }

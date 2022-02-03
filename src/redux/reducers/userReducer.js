@@ -1,4 +1,9 @@
-let initialState = { user : {} , isLoggedIn : false }
+let initialState = { user : {} , isLoggedIn : false , location : {city:"",area:""}}
+
+if ( localStorage.getItem("userCredentials"))
+{
+    initialState = { user : JSON.parse(localStorage.getItem("userCredentials")) , isLoggedIn : true , location : {city:"",area:""}}
+}
 
 
 export let userReducer = ( state = initialState , action)=>{
@@ -20,6 +25,8 @@ export let userReducer = ( state = initialState , action)=>{
             user : action.payload,
             isLoggedIn : true
             }
+
+        
 
         case 'SAVE_LOCATION':
             return{

@@ -7,11 +7,12 @@ import { useAlert } from 'react-alert'
 import {store} from '../../redux/store'
 export default function SideBar(props) {
     
+    
     const alert = useAlert()
     const dispatch = useDispatch()
     let user = props.user
-
-    let [location  , setLocation] = useState({city:"",area:""})
+    
+    let [location ,setLocation] = useState({ city: "" , area: ""})
     let [errors , setErrors] = useState([])
 
     let cartItems  = useSelector(state=> state.cartItemsReducer.cartItems)
@@ -37,7 +38,7 @@ export default function SideBar(props) {
         }
 
         dispatch( {type : "SAVE_LOCATION" , payload : location})
-
+        props.setSideBar(false)
         /*await fetch("http://localhost:8000/kfc/order" ,
          {
             method:"POST",
@@ -94,8 +95,14 @@ export default function SideBar(props) {
                             <span className="fs-4">Your total : </span> <span className="fs-4 text-danger">PKR {bill}</span>
                             </div>
                         </div>
+                        { (location.city && location.area) ? 
                         
-                        <Link to="/viewCart" className="order-btn w-75" onClick={()=> { props.setSideBar(false) ; handleOrder() }  } >Proceed to Checkout</Link>
+                        <Link to="/viewCart" className="order-btn w-75" onClick={()=> { handleOrder()}} >Proceed to Checkout</Link>
+                        :
+                        <button className="order-btn order-btn-inactive w-75">Proceed to Checkout</button>  
+                        
+                        }
+                        
                         {errors.map((el,ind)=> <p className="text-center mt-4" key={ind}>{el.message}</p>)}
 
                     </div>

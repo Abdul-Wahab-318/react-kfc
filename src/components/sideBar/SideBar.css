@@ -102,3 +102,6 @@
     margin-top: 50%;
     font-size: 14px;
 }
+.order-btn-inactive {
+    opacity: 0.6;
+}

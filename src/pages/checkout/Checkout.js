@@ -1,16 +1,45 @@
 import React , {useState} from 'react';
 import './Checkout.css'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import CheckOutLogIn from '../../components/checkOutLogIn/CheckOutLogIn';
 import PaymentOption from '../../components/paymentOption/PaymentOption';
 export default function Checkout() {
 
-
+    const history = useHistory()
+    const dispatch = useDispatch()
     let isLoggedIn = useSelector(state => state.userReducer.isLoggedIn)
+    let [ user , setUser ] = useState ( useSelector( state => state.userReducer.user ))
+    let [ location , setLocation ] = useState ( useSelector( state => state.userReducer.location ))
+    console.log(location)
     let [ cartItems , setCartItems ] = useState( useSelector(state => state.cartItemsReducer.cartItems) )
     let [ subtotal , setSubTotal ] = useState( cartItems.reduce( ( accum , current) => accum + current.price , 0  ) )
     let shippingBill = 30 
     let [ total , setTotal ] = useState( subtotal + shippingBill )
+
+
+    let handleOrder = async () => {
+
+        await fetch("https://kfc-backend.herokuapp.com/kfc/order" ,
+         {
+            method:"POST",
+            headers: {'Content-type':"application/json"},
+            credentials:'include',
+            body: JSON.stringify({items: cartItems ,user: { _id:user._id , name:user.name, email:user.email } , location, bill : total})
+        })
+        .then(data=> data.json()).then(data => {
+
+            if (data.error)
+            console.log(data.error)
+        
+            else
+            {
+                dispatch( {type : 'EMPTY_CART' })
+                history.push("/ordercomplete")
+            }
+
+        })
+    }
 
 
   return(
@@ -57,7 +86,7 @@ export default function Checkout() {
                             <h3>PKR {total}</h3>
                         </div>
                     </div>
-                    <button className="order-btn mt-4 w-100 fs-5">PLACE ORDER</button>
+                    <button className="order-btn mt-4 w-100 fs-5" onClick={ ()=>handleOrder()}>PLACE ORDER</button>
                 </section>
             </div>
         </div>
