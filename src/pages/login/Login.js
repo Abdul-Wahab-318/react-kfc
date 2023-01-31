@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import UserProfile from '../../components/userProfile/UserProfile'
 import { UserInfoContext } from '../../userInfo'
 import {useSelector , useDispatch} from 'react-redux'
-
+import { API_URL } from "../../api";
 
 
 function Login() {
@@ -17,7 +17,7 @@ function Login() {
 
     let handleLogin = ()=>{
 
-        fetch("https://kfc-backend.herokuapp.com/kfc/users/login" ,
+        fetch(`${API_URL}/kfc/users/login` ,
          {
             method: "POST" 
             ,credentials: 'include'
@@ -33,7 +33,7 @@ function Login() {
 
             dispatch({ type:"LOGIN_SUCCESS" ,  payload : data.user })
             localStorage.setItem("userCredentials" , JSON.stringify( data.user ) )
-            console.log(data)
+            setFormInfo({email: "" , password: ""})
           } ).catch(err=> alert(err))
     }
 

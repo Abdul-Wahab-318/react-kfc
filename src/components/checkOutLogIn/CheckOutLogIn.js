@@ -1,6 +1,7 @@
 import React , {useState} from 'react';
 import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {API_URL} from "../../api"
 import './CheckOutLogIn.css'
 
 export default function CheckOutLogIn() {
@@ -18,7 +19,7 @@ export default function CheckOutLogIn() {
     }
     else
     {
-      await fetch("https://kfc-backend.herokuapp.com/kfc/users/login" , 
+      await fetch(`${API_URL}/kfc/users/login` , 
       {
         method : "POST" ,
         credentials : 'include' ,

@@ -3,7 +3,7 @@ import './CategoryPage.css'
 import LeadText from '../../components/LeadText'
 import {useParams} from 'react-router-dom'
 import ProductCard from '../../components/productCard/ProductCard'
-
+import { API_URL } from "../../api";
 
 
 export default function ProductPage() {
@@ -12,7 +12,7 @@ export default function ProductPage() {
 
 
     let getProducts = async ()=>{
-        await fetch("https://kfc-backend.herokuapp.com/kfc/products").then(resp=> resp.json()).then(data=> setProducts(data.allProducts))
+        await fetch(`${API_URL}/kfc/products`).then(resp=> resp.json()).then(data=> setProducts(data.allProducts))
     }
 
     useEffect(()=>{

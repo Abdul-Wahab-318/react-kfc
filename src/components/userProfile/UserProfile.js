@@ -2,6 +2,8 @@ import './UserProfile.css'
 import React , {useState , useEffect} from 'react'
 import ActiveOrderItem from '../activeOrderItem/ActiveOrderItem'
 import {useSelector , useDispatch} from 'react-redux'
+import { API_URL } from '../../api'
+
 
 export default function UserProfile(props) {
     
@@ -10,17 +12,20 @@ export default function UserProfile(props) {
     let [activeOrders , setActiveOrders] = useState(false)
 
     let getActiveOrders = async ()=>{
-        await fetch(`https://kfc-backend.herokuapp.com/kfc/order/user/activeOrders/${user._id}`)
+        await fetch(`${API_URL}/kfc/order/user/activeOrders/${user._id}`)
         .then(res=> res.json()) 
         .then(data=> setActiveOrders(data.orders))
     }
 
     let handleLogOut = async ()=>{
-        await fetch("https://kfc-backend.herokuapp.com/kfc/users/logout" ,
+        await fetch(`${API_URL}/kfc/users/logout` ,
          {method : "POST" 
          ,headers:{"Content-type": "application/json"},
          credentials: "include"
-        }).then(data=> console.log("logged out"))
+        })
+        .then( data => {
+            localStorage.removeItem("userCredentials")
+        })
 
 
         dispatch( { type : 'LOGOUT' } )

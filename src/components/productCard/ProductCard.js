@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import {Link} from 'react-router-dom'
 import './ProductCard.css'
-import krunch from '../../img/krunch-with-drink.png'
 export default function ProductCard(props) {
     let product = props.product 
 

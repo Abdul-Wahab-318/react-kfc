@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CheckOutLogIn from '../../components/checkOutLogIn/CheckOutLogIn';
 import PaymentOption from '../../components/paymentOption/PaymentOption';
+import { API_URL } from "../../api";
 export default function Checkout() {
 
     const history = useHistory()
@@ -11,7 +12,6 @@ export default function Checkout() {
     let isLoggedIn = useSelector(state => state.userReducer.isLoggedIn)
     let [ user , setUser ] = useState ( useSelector( state => state.userReducer.user ))
     let [ location , setLocation ] = useState ( useSelector( state => state.userReducer.location ))
-    console.log(location)
     let [ cartItems , setCartItems ] = useState( useSelector(state => state.cartItemsReducer.cartItems) )
     let [ subtotal , setSubTotal ] = useState( cartItems.reduce( ( accum , current) => accum + current.price , 0  ) )
     let shippingBill = 30 
@@ -20,7 +20,7 @@ export default function Checkout() {
 
     let handleOrder = async () => {
 
-        await fetch("https://kfc-backend.herokuapp.com/kfc/order" ,
+        await fetch(`${API_URL}/kfc/order` ,
          {
             method:"POST",
             headers: {'Content-type':"application/json"},

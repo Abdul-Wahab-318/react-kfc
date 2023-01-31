@@ -4,6 +4,7 @@ import { useSelector ,useDispatch } from 'react-redux';
 import { useAlert } from 'react-alert'
 import {CardNumberElement , CardExpiryElement , CardCvcElement , useStripe , useElements} from '@stripe/react-stripe-js'
 import kfc from '../../img/krunch-with-drink.png'
+import { API_URL } from "../../api";
 
 export default function Payment() {
 
@@ -31,7 +32,7 @@ export default function Payment() {
           return;
         }
         
-        let client_secret = await fetch("https://kfc-backend.herokuapp.com/kfc/payment" , {
+        let client_secret = await fetch(`${API_URL}/kfc/payment` , {
             method : 'POST' ,
             credentials : 'include' , 
             headers : {'Content-type' : 'application/json'},
@@ -40,7 +41,6 @@ export default function Payment() {
         .then(data => data.json())
         .then( ({client_secret}) => client_secret)
 
-        console.log( `client secret : ${client_secret} `)
 
         stripe.confirmCardPayment( client_secret , {
             payment_method : {
@@ -60,12 +60,6 @@ export default function Payment() {
             alert.error("Add more items to cart . Total bill must be atleast PKR 250")
             return
         }
-
-        /*if(location.city == "" || location.area == "")
-        {
-            alert("City and Area are required")
-            return
-        }*/
 
         await fetch("http://localhost:8000/kfc/order" ,
          {method:"POST",

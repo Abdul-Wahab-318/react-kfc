@@ -10,16 +10,15 @@ export default function SideBar(props) {
     
     const alert = useAlert()
     const dispatch = useDispatch()
-    let user = props.user
     
     let [location ,setLocation] = useState({ city: "" , area: ""})
     let [errors , setErrors] = useState([])
 
     let cartItems  = useSelector(state=> state.cartItemsReducer.cartItems)
-    let [bill,setBill] = useState(cartItems.reduce((accum,current) => accum + (current.price /** current.quantity*/) , 0)) 
+    let [bill,setBill] = useState(cartItems.reduce((accum,current) => accum + (current.price) , 0)) 
 
     React.useEffect(()=>{
-        setBill(cartItems.reduce((accum,current) => accum + (current.price /** current.quantity*/) , 0))
+        setBill(cartItems.reduce((accum,current) => accum + (current.price) , 0))
     }, [cartItems])
     
     
@@ -39,26 +38,8 @@ export default function SideBar(props) {
 
         dispatch( {type : "SAVE_LOCATION" , payload : location})
         props.setSideBar(false)
-        /*await fetch("http://localhost:8000/kfc/order" ,
-         {
-            method:"POST",
-            headers: {'Content-type':"application/json"},
-            credentials:'include',
-            body: JSON.stringify({items: cartItems ,user:{_id:user._id,name:user.name, email:user.email}, location, bill})})
-            .then(data=> data.json()).then(data => placedOrder(data))*/
          }
-    let placedOrder = (data)=>{ //RUNS AFTER ORDER IS SENT TO SERVER AND RESPONSE IS RECIEVED
-        console.log(data)
 
-        if(data.error)
-        {
-            console.log(Object.values(data.error))
-            setErrors(Object.values(data.error))
-            return
-        }
-        dispatch({type:"EMPTY_CART"})
-        setBill(0)
-    }
 
     return (
 

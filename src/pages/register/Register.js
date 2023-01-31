@@ -4,12 +4,12 @@ import {useAlert} from 'react-alert'
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { Link , useHistory } from 'react-router-dom'
+import { API_URL } from '../../api';
 
 export default function Register() {
 
     const history = useHistory()
     const alert = useAlert()
-    const URL = "https://kfc-backend.herokuapp.com"
 
     const formik = useFormik({
         
@@ -79,7 +79,7 @@ export default function Register() {
             
             delete values.repeatPassword
             console.log(values)
-            await fetch(`${URL}/kfc/users/create` ,
+            await fetch(`${API_URL}/kfc/users/create` ,
             {method: "POST" ,
             headers: {"Content-Type": "application/json"} ,
             body: JSON.stringify(values)})
