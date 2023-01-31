@@ -3,7 +3,6 @@ import './Payment.css'
 import { useSelector ,useDispatch } from 'react-redux';
 import { useAlert } from 'react-alert'
 import {CardNumberElement , CardExpiryElement , CardCvcElement , useStripe , useElements} from '@stripe/react-stripe-js'
-import kfc from '../../img/krunch-with-drink.png'
 import { API_URL } from "../../api";
 
 export default function Payment() {

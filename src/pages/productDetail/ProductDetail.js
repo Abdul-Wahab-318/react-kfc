@@ -1,7 +1,6 @@
 import React , {useState , useEffect,useContext} from 'react'
 import {useParams} from 'react-router-dom'
 import { useAlert } from 'react-alert'
-import kfc from '../../img/krunch-with-drink.png'
 import {useSelector , useDispatch} from 'react-redux'
 import {store} from '../../redux/store'
 import { API_URL } from "../../api";
