@@ -14,7 +14,7 @@ function Header ()
     let cartItems = useSelector(state=> state.cartItemsReducer.cartItems)
     let [ sideBar , setSideBar ]= useState(false)
     let  user = useSelector(state => state.userReducer)
-    console.log(user)
+
     return (
         <div className="header-parent" id="header">
             <div className="header-inner">

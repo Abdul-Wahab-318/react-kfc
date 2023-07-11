@@ -5,7 +5,6 @@ function LeadText ()
     if(slug!== undefined)
     {
         slug = slug.split("")
-        console.log(slug)
         slug = slug.map((m)=>{
             if(m=="-")
             m = " "

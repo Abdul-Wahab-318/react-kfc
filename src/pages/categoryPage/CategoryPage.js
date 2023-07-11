@@ -4,33 +4,52 @@ import LeadText from '../../components/LeadText'
 import {useParams} from 'react-router-dom'
 import ProductCard from '../../components/productCard/ProductCard'
 import { API_URL } from "../../api";
-
-
+import SkeletonCard from  '../../components/skeletonCard/SkeletonCard'
+import { useDispatch, useSelector } from 'react-redux'
 export default function ProductPage() {
-    let {slug} = useParams();
-    let [products , setProducts] = useState([])
 
+    let dispatch = useDispatch()
+    let {slug} = useParams();
+    let [products , setProducts] = useState( useSelector( state => state.productsReducer) )
+    console.log("prod : " , products)
+    let [ isLoading , setIsLoading ] = useState(false)
 
     let getProducts = async ()=>{
-        await fetch(`${API_URL}/kfc/products`).then(resp=> resp.json()).then(data=> setProducts(data.allProducts))
+        console.log("getting")
+        setIsLoading(true)
+
+        await fetch(`${API_URL}/kfc/products`)
+        .then(resp=> resp.json())
+        .then(data=> {
+            setIsLoading(false)
+            dispatch({ type : "SAVE-PRODUCTS" , payload : data.allProducts })
+            setProducts(data.allProducts)
+        })
+        .catch( err => console.log(err) )
     }
 
     useEffect(()=>{
+        if( products.length === 0 )
         getProducts()
     },[])
 
-    products = products.filter((f)=>{
-        if(f.category===slug)
-        return f;
-    })
-    
 
     return (
         <div className="product-page">
             <LeadText/>
             <div className="page-content container">
                 <div className="featured-products-parent">
-                    {products.map((p,index)=> <ProductCard key={index} product={p}/>)}
+                    {
+                        isLoading ? 
+                        <>
+                            <SkeletonCard/>
+                            <SkeletonCard/>
+                            <SkeletonCard/>
+                        </>
+                        :
+                        products.filter( el => el.category === slug  ).map((p,index)=> <ProductCard key={index} product={p}/>)
+
+                    }
                 </div>
             </div>
         </div>

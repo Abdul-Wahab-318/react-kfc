@@ -1,8 +1,10 @@
 import './App.css';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route ,
+  useLocation
 } from "react-router-dom";
 import { Elements } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
@@ -21,6 +23,7 @@ import ViewCart from './pages/viewCart/ViewCart';
 import Checkout from './pages/checkout/Checkout';
 import ProtectRoute from './components/protectRoute/ProtectRoute';
 import OrderComplete from './components/OrderComplete';
+import ScrollToTop from './components/ScrollToTop';
 
 const stripePromise = loadStripe('pk_test_51JmH5OGFsyW28IZDENWS0plIwH9VnoIX9rikZCKXPSOlsssryHEmaFimAdqfUHxKXwmBdwqpWNrc6JvUDDP60Rb000bYTEgOha');
 
@@ -31,63 +34,66 @@ function App() {
       <OrderListProvider>
 
       <Router>
+        <ScrollToTop/>
         <UserInfoProvider>
+
           <Header/>
    
-        <Switch>
+          <Switch>
 
-          <Route exact path="/">
-            <Home></Home>
-          </Route>
+            <Route exact path="/">
+              <Home></Home>
+            </Route>
 
-          <Route exact path="/category/:slug">
-            <UserInfoProvider>
-            <ProductPage/>
-            </UserInfoProvider>
-          </Route>
+            <Route exact path="/category/:slug">
+              <UserInfoProvider>
+              <ProductPage/>
+              </UserInfoProvider>
+            </Route>
 
-          <Route exact path="/product/:slug">
-            <ProductDetail/>
-          </Route>
+            <Route exact path="/product/:slug">
+              <ProductDetail/>
+            </Route>
 
-          <Route exact path="/login">
-              <Login/>
-          </Route>
+            <Route exact path="/login">
+                <Login/>
+            </Route>
 
-          
-          <Route exact path="/register">
-            <Register/>
-          </Route>
+            
+            <Route exact path="/register">
+              <Register/>
+            </Route>
 
-          <Route exact path="/viewCart">
-            <ProtectRoute component = {ViewCart} />
-          </Route>
+            <Route exact path="/viewCart">
+              <ProtectRoute component = {ViewCart} />
+            </Route>
 
-          <Route exact path="/checkout">
-            <ProtectRoute component = {Checkout} />
-          </Route>
+            <Route exact path="/checkout">
+              <ProtectRoute component = {Checkout} />
+            </Route>
 
-          <Route exact path="/ordercomplete">
-            <ProtectRoute component = {OrderComplete} />
-          </Route>
+            <Route exact path="/ordercomplete">
+              <ProtectRoute component = {OrderComplete} />
+            </Route>
 
-          <Route exact path="/payment">
-            <Elements stripe={stripePromise}>
-              <ProtectRoute component = {Payment} />
-            </Elements>
-          </Route>
-          
-          <Route exact path="*">
-            <h1 className="text-center my-5">you are lost lol</h1>
-          </Route>
-          
-        </Switch>
-        <Footer/>
+            <Route exact path="/payment">
+              <Elements stripe={stripePromise}>
+                <ProtectRoute component = {Payment} />
+              </Elements>
+            </Route>
+            
+            <Route exact path="*">
+              <h1 className="text-center my-5">you are lost lol</h1>
+            </Route>
+            
+          </Switch>
+          <Footer/>
+
         </UserInfoProvider>
       </Router>
-
       </OrderListProvider>
     </div>
+
   );
 }
 
