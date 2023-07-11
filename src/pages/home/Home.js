@@ -1,31 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useState , useEffect } from "react";
 import './Home.css'
 import LeadText from "../../components/LeadText";
 import Slider from "../../components/Slider";
 import ProductCard from "../../components/productCard/ProductCard";
 import {useDispatch , useSelector} from 'react-redux'
-
+import api from "../../api";
+import SkeletonCard from "../../components/skeletonCard/SkeletonCard";
 function Home()
 {
-    let [featuredProducts , setFeaturedProducts] = React.useState([])
-    let getFeaturedProducts = async()=>{
-        await fetch("https://kfc-backend.herokuapp.com/kfc/products")
+    let [featuredProducts , setFeaturedProducts] = useState([])
+    let [ isLoading , setIsLoading ] = useState(false)
+    let getFeaturedProducts = async () => {
+        setIsLoading(true)
+        await fetch(`${api}/kfc/products`)
         .then(res=> res.json())
-        .then(data=>{
+        .then( data => {
+            setIsLoading(false)
             setFeaturedProducts(data.allProducts.filter(el=> el.category === "featured"))
             dispatch({type: "SAVE-PRODUCTS" , payload: data.allProducts})
-        })
-        //.then(_=>dispatch({type: "SAVE-PRODUCTS" , payload: featuredProducts}))
-        
+        }).catch( err => console.log(err) )
+ 
     }
 
     const dispatch = useDispatch()
-    /*let products = useSelector(state=> state.productsReducer)
 
-    console.log(products)*/
     useEffect(()=>{
         getFeaturedProducts()
-
     },[])
     
 
@@ -35,7 +35,18 @@ function Home()
         <LeadText/>
         <div className="container">
         <div className="featured-products-parent">
-            {featuredProducts.map((el,ind)=> <ProductCard key={ind} product={el}></ProductCard>)}
+            {
+                isLoading ? 
+                <>
+                    <SkeletonCard/>
+                    <SkeletonCard/>
+                    <SkeletonCard/>
+                </>
+                :
+                featuredProducts.map((el,ind)=> <ProductCard key={ind} product={el}></ProductCard>)
+                
+
+            }
         </div>
         </div>
         </div>

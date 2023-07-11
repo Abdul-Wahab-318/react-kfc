@@ -7,7 +7,7 @@ import './ViewCart.css'
 export default function ViewCart() {
 
     let cartItems  = useSelector(state=> state.cartItemsReducer.cartItems)
-    let bill = useSelector(state => state.cartItemsReducer.cartItems).reduce ( (accum , current) => accum.price + current.price )
+    let bill = useSelector(state => state.cartItemsReducer.cartItems).reduce( (accum , current ) => accum.price + current.price , 0)
     console.log(bill)
 
   return (
@@ -49,7 +49,7 @@ export default function ViewCart() {
     )}
         <div className="d-flex fs-4 p-2 justify-content-end">
             <p className="me-2">Total Amount : </p>
-            <p className="text-end text-danger"> PKR  {bill} </p>
+            <p className="text-end text-danger"> PKR  {"bill"} </p>
         </div>
         <Link to="/checkout"><button className="order-btn">Proceed to checkout</button></Link>
         
