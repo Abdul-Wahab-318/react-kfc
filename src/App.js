@@ -83,7 +83,7 @@ function App() {
             </Route>
             
             <Route exact path="*">
-              <h1 className="text-center my-5">you are lost lol</h1>
+              <h1 className="text-center my-5">404 <br /> Page not found</h1>
             </Route>
             
           </Switch>

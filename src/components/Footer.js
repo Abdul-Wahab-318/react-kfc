@@ -17,43 +17,43 @@ function Footer()
                         <div className="footer-bottom-col">
                             <ul>
                                 <li><h6>Information</h6></li>
-                                <li><a href="index.html">About Us</a></li>
-                                <li><a href="index.html">Mitao Bhook</a></li>
-                                <li><a href="index.html">Privacy Policy</a></li>
+                                <li>About Us</li>
+                                <li>Mitao Bhook</li>
+                                <li>Privacy Policy</li>
                             </ul>
                         </div>
                         <div className="footer-bottom-col">
                             <ul>
                                 <li><h6>Food</h6></li>
-                                <li><a href="index.html">Our Secret Recipe</a></li>
+                                <li>Our Secret Recipe</li>
                             </ul>
                         </div>
                         <div className="footer-bottom-col">
                             <ul>
                                 <li><h6>Locations</h6></li>
-                                <li><a href="index.html">Find a Store</a></li>
+                                <li>Find a Store</li>
                             </ul>
                         </div>
                         <div className="footer-bottom-col">
                             <ul>
                                 <li><h6>Get in Touch</h6></li>
-                                <li><a href="index.html">Contact</a></li>
-                                <li><a href="index.html">Join Us</a></li>
-                                <li><a href="index.html">Scholarships</a></li>
-                                <li><a href="index.html">Terms & Conditions</a></li>
+                                <li>Contact</li>
+                                <li>Join Us</li>
+                                <li>Scholarships</li>
+                                <li>Terms & Conditions</li>
                             </ul>
                         </div>
                         <div className="footer-bottom-col d-none d-lg-flex">
                             <ul>
-                                <li><a href="index.html"><img src={appStore} width="150px" alt="" /></a></li>
-                                <li><a href="index.html"><img src={playStore} width="150px" alt="" /></a></li>
+                                <li><img src={appStore} width="150px" alt="" /></li>
+                                <li><img src={playStore} width="150px" alt="" /></li>
                             </ul>
                         </div>
                     </div>
 
                     <div className="footer-copyright">
                         <p className="assistant">© 2021 KFC Pakistan. All rights reserved.</p>
-                        <a href="" className="assistant">eCommerce</a> 
+                        <span className="assistant">eCommerce </span>
                         <span className="assistant">by</span>
                         <a href="" className="assistant">Fishry</a>
                     </div>
