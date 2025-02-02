@@ -58,7 +58,7 @@ export default function Register() {
             .max(100)
             .required("Address is required") ,
 
-            country : Yup.string().required().lowercase(),
+            country : Yup.string().lowercase(),
 
             province : Yup.string()
             .required("Province is required") ,
@@ -73,12 +73,12 @@ export default function Register() {
             zip : Yup.string().required()
         }) ,
 
-
-
-        onSubmit: async (values , {setSubmitting}) => {
+        onSubmit: async (values , { errors , setSubmitting}) => {
             
-            delete values.repeatPassword
-            console.log(values)
+            const payload = { ...values }
+            delete payload.repeatPassword
+            console.log("Registering user ...")
+
             await fetch(`${API_URL}/kfc/users/create` ,
             {method: "POST" ,
             headers: {"Content-Type": "application/json"} ,
@@ -176,6 +176,9 @@ export default function Register() {
                                         <option value="punjab" >punjab</option> 
                                         <option value="kpk">kpk</option>
                                     </select>
+                                    {formik.touched.province && formik.errors.province ? (
+                                        <div className='error-handler'>{formik.errors.province}</div>
+                                    ) : null}
                                 </div>
                                 <div className="col-4">
                                     <input {...formik.getFieldProps('city')} type="text" placeholder="City *" />

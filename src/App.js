@@ -6,8 +6,6 @@ import {
   Route ,
   useLocation
 } from "react-router-dom";
-import { Elements } from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
 import Home from './pages/home/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -24,8 +22,6 @@ import Checkout from './pages/checkout/Checkout';
 import ProtectRoute from './components/protectRoute/ProtectRoute';
 import OrderComplete from './components/OrderComplete';
 import ScrollToTop from './components/ScrollToTop';
-
-const stripePromise = loadStripe('pk_test_51JmH5OGFsyW28IZDENWS0plIwH9VnoIX9rikZCKXPSOlsssryHEmaFimAdqfUHxKXwmBdwqpWNrc6JvUDDP60Rb000bYTEgOha');
 
 function App() {
 
@@ -77,9 +73,7 @@ function App() {
             </Route>
 
             <Route exact path="/payment">
-              <Elements stripe={stripePromise}>
                 <ProtectRoute component = {Payment} />
-              </Elements>
             </Route>
             
             <Route exact path="*">

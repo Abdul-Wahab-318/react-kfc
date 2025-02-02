@@ -11,11 +11,10 @@ export default function ProductPage() {
     let dispatch = useDispatch()
     let {slug} = useParams();
     let [products , setProducts] = useState( useSelector( state => state.productsReducer) )
-    console.log("prod : " , products)
     let [ isLoading , setIsLoading ] = useState(false)
 
     let getProducts = async ()=>{
-        console.log("getting")
+        
         setIsLoading(true)
 
         await fetch(`${API_URL}/kfc/products`)

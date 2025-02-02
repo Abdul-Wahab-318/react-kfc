@@ -91,7 +91,6 @@ function Header ()
                         </Link>
                     </div>
                     <div className="login-parent">
-                      <div className='store-locator'> <img src={pin} alt="location" /> <Link to="/login">Store locator</Link> </div>  
                       <div className="login"> <img src={userIcon} alt="user"/>  <Link to="/login">{user.loggedIn? "Account" : "SIGN IN / REGISTER"}</Link>  </div>
                     </div>
                 </div>
